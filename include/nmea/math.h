@@ -1,40 +1,40 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 #ifndef __NMEA_MATH_H__
 #define __NMEA_MATH_H__
 
 #include "info.h"
 
-#define NMEA_PI             (3.141592653589793)             ///< PI value
-#define NMEA_PI180          (NMEA_PI / 180)                 ///< PI division by 180
-#define NMEA_EARTHRADIUS_KM (6378)                          ///< Earth's mean radius in km
-#define NMEA_EARTHRADIUS_M  (NMEA_EARTHRADIUS_KM * 1000)    ///< Earth's mean radius in m
-#define NMEA_DOP_FACTOR     (5)                             ///< Factor for translating DOP to meters
+#define NMEA_PI             (3.141592653589793)             /**< PI value */
+#define NMEA_PI180          (NMEA_PI / 180)                 /**< PI division by 180 */
+#define NMEA_EARTHRADIUS_KM (6378)                          /**< Earth's mean radius in km */
+#define NMEA_EARTHRADIUS_M  (NMEA_EARTHRADIUS_KM * 1000)    /**< Earth's mean radius in m */
+#define NMEA_DOP_FACTOR     (5)                             /**< Factor for translating DOP to meters */
 
 #ifdef  __cplusplus
 extern "C" {
 #endif
 
-///////////////////////////////////////////////////////////
-// degree VS radian
-///////////////////////////////////////////////////////////
+/*
+ * degree VS radian
+ */
 
 NMEA_INLINE double nmea_degree2radian(double val)
 { return (val * NMEA_PI180); }
 NMEA_INLINE double nmea_radian2degree(double val)
 { return (val / NMEA_PI180); }
 
-///////////////////////////////////////////////////////////
-// NDEG (NMEA degree)
-///////////////////////////////////////////////////////////
+/*
+ * NDEG (NMEA degree)
+ */
 
 double nmea_ndeg2degree(double val);
 double nmea_degree2ndeg(double val);
@@ -44,9 +44,9 @@ NMEA_INLINE double nmea_ndeg2radian(double val)
 NMEA_INLINE double nmea_radian2ndeg(double val)
 { return nmea_degree2ndeg(nmea_radian2degree(val)); }
 
-///////////////////////////////////////////////////////////
-// DOP
-///////////////////////////////////////////////////////////
+/*
+ * DOP
+ */
 
 double nmea_calc_pdop(double hdop, double vdop);
 
@@ -55,9 +55,9 @@ NMEA_INLINE double nmea_dop2meters(double dop)
 NMEA_INLINE double nmea_meters2dop(double meters)
 { return (meters / NMEA_DOP_FACTOR); }
 
-///////////////////////////////////////////////////////////
-// positions work
-///////////////////////////////////////////////////////////
+/*
+ * positions work
+ */
 
 void nmea_info2pos(const nmeaINFO *info, nmeaPOS *pos);
 void nmea_pos2info(const nmeaPOS *pos, nmeaINFO *info);
@@ -78,4 +78,4 @@ int     nmea_move_horz(
 }
 #endif
 
-#endif // __NMEA_MATH_H__
+#endif /* __NMEA_MATH_H__ */

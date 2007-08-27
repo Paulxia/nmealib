@@ -15,7 +15,7 @@ int main()
     if(0 == (gen = nmea_create_generator(NMEA_GEN_ROTATE, &info)))
         return -1;
 
-    for(it = 0; it < 10; ++it)
+    for(it = 0; it < 10000; ++it)
     {
         gen_sz = nmea_generate_from(
             &buff[0], 2048, &info, gen,

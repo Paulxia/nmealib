@@ -1,12 +1,12 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 #ifndef __NMEA_PARSER_H__
 #define __NMEA_PARSER_H__
@@ -17,9 +17,9 @@
 extern "C" {
 #endif
 
-///////////////////////////////////////////////////////////
-// high level
-///////////////////////////////////////////////////////////
+/*
+ * high level
+ */
 
 typedef struct _nmeaPARSER
 {
@@ -40,9 +40,9 @@ int     nmea_parse(
         nmeaINFO *info
         );
 
-///////////////////////////////////////////////////////////
-// low level
-///////////////////////////////////////////////////////////
+/*
+ * low level
+ */
 
 int     nmea_parser_push(nmeaPARSER *parser, const char *buff, int buff_sz);
 int     nmea_parser_top(nmeaPARSER *parser);
@@ -56,4 +56,4 @@ int     nmea_parser_queue_clear(nmeaPARSER *parser);
 }
 #endif
 
-#endif // __NMEA_PARSER_H__
+#endif /* __NMEA_PARSER_H__ */

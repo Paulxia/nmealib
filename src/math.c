@@ -1,12 +1,12 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 /*! \file math.h */
 
@@ -70,8 +70,8 @@ double nmea_calc_pdop(double hdop, double vdop)
  * \return Distance in meters
  */
 double nmea_distance(
-        const nmeaPOS *from_pos,    ///< From position in radians
-        const nmeaPOS *to_pos       ///< To position in radians
+        const nmeaPOS *from_pos,    /**< From position in radians */
+        const nmeaPOS *to_pos       /**< To position in radians */
         )
 {
     double dist = ((double)NMEA_EARTHRADIUS_M) * acos(
@@ -85,16 +85,16 @@ double nmea_distance(
  * \brief Horizontal move of point position
  */
 int nmea_move_horz(
-    const nmeaPOS *start_pos,   ///< Start position in radians
-    nmeaPOS *end_pos,           ///< Result position in radians
-    double azimuth,             ///< Azimuth (degree) [0, 359]
-    double distance             ///< Distance (km)
+    const nmeaPOS *start_pos,   /**< Start position in radians */
+    nmeaPOS *end_pos,           /**< Result position in radians */
+    double azimuth,             /**< Azimuth (degree) [0, 359] */
+    double distance             /**< Distance (km) */
     )
 {
     nmeaPOS p1 = *start_pos;
     int RetVal = 1;
 
-    distance /= NMEA_EARTHRADIUS_KM; // Angular distance covered on earth's surface
+    distance /= NMEA_EARTHRADIUS_KM; /* Angular distance covered on earth's surface */
     azimuth = nmea_degree2radian(azimuth);
 
     end_pos->lat = asin(

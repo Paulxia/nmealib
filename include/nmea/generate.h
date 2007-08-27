@@ -1,12 +1,12 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 #ifndef __NMEA_GENERATE_H__
 #define __NMEA_GENERATE_H__
@@ -18,9 +18,9 @@ extern "C" {
 #endif
 
 int     nmea_generate(
-        char *buff, int buff_sz,    // buffer
-        const nmeaINFO *info,       // source info
-        int generate_mask           // mask of sentence`s (e.g. GPGGA | GPGSA)
+        char *buff, int buff_sz,    /* buffer */
+        const nmeaINFO *info,       /* source info */
+        int generate_mask           /* mask of sentence`s (e.g. GPGGA | GPGSA) */
         );
 
 int     nmea_gen_GPGGA(char *buff, int buff_sz, nmeaGPGGA *pack);
@@ -41,4 +41,4 @@ void    nmea_info2GPGSV(const nmeaINFO *info, nmeaGPGSV *pack, int pack_idx);
 }
 #endif
 
-#endif // __NMEA_GENERATE_H__
+#endif /* __NMEA_GENERATE_H__ */

@@ -1,20 +1,20 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 #ifndef __NMEA_CONFIG_H__
 #define __NMEA_CONFIG_H__
 
-#define NMEA_VERSION        ("0.4.1")
+#define NMEA_VERSION        ("0.4.2")
 #define NMEA_VERSION_MAJOR  (0)
 #define NMEA_VERSION_MINOR  (4)
-#define NMEA_VERSION_PATCH  (1)
+#define NMEA_VERSION_PATCH  (2)
 
 #define NMEA_CONVSTR_BUF    (255)
 
@@ -29,7 +29,7 @@
 #endif
 
 #if defined(NMEA_WIN) && (_MSC_VER >= 1400)
-# pragma warning(disable: 4996) // declared deprecated
+# pragma warning(disable: 4996) /* declared deprecated */
 #endif
 
 #if defined(_MSC_VER)
@@ -48,4 +48,4 @@
 #endif
 
 
-#endif // __NMEA_CONFIG_H__
+#endif /* __NMEA_CONFIG_H__ */

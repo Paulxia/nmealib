@@ -37,8 +37,10 @@ int main()
     nmea_zero_INFO(&info);
     nmea_parser_init(&parser);
 
-    //while(1)
-    //{
+    /*
+    while(1)
+    {
+    */
 
     while(!feof(file))
     {
@@ -56,7 +58,9 @@ int main()
 
     fseek(file, 0, SEEK_SET);
 
-    //}
+    /*
+    }
+    */
 
     nmea_parser_destroy(&parser);
     fclose(file);

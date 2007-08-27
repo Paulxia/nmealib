@@ -1,19 +1,25 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 /*! \file time.h */
 
 #include "nmea/time.h"
 
 #ifdef NMEA_WIN
+#   pragma warning(disable: 4201)
+#   pragma warning(disable: 4214)
+#   pragma warning(disable: 4115)
 #   include <windows.h>
+#   pragma warning(default: 4201)
+#   pragma warning(default: 4214)
+#   pragma warning(default: 4115)
 #else
 #   include <time.h>
 #endif
@@ -35,7 +41,7 @@ void nmea_time_now(nmeaTIME *stm)
     stm->hsec = st.wMilliseconds / 10;
 }
 
-#else // NMEA_WIN
+#else /* NMEA_WIN */
 
 void nmea_time_now(nmeaTIME *stm)
 {

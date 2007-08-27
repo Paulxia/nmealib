@@ -1,12 +1,12 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 #include <memory.h>
 #include <malloc.h>
@@ -18,7 +18,7 @@
 #include "nmea/context.h"
 
 #if defined(NMEA_WIN) && defined(_MSC_VER)
-# pragma warning(disable: 4100) // unreferenced formal parameter
+# pragma warning(disable: 4100) /* unreferenced formal parameter */
 #endif
 
 double nmea_random(double min, double max)
@@ -29,9 +29,9 @@ double nmea_random(double min, double max)
     return min + (rand_val * bounds) / rand_max;
 }
 
-///////////////////////////////////////////////////////////
-// low level
-///////////////////////////////////////////////////////////
+/*
+ * low level
+ */
 
 int nmea_gen_init(nmeaGENERATOR *gen, nmeaINFO *info)
 {
@@ -114,9 +114,9 @@ int nmea_generate_from(
     return retval;
 }
 
-///////////////////////////////////////////////////////////
-// NOISE generator
-///////////////////////////////////////////////////////////
+/*
+ * NOISE generator
+ */
 
 int nmea_igen_noise_init(nmeaGENERATOR *gen, nmeaINFO *info)
 {
@@ -165,9 +165,9 @@ int nmea_igen_noise_reset(nmeaGENERATOR *gen, nmeaINFO *info)
     return 1;
 }
 
-///////////////////////////////////////////////////////////
-// STATIC generator
-///////////////////////////////////////////////////////////
+/*
+ * STATIC generator
+ */
 
 int nmea_igen_static_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 {
@@ -217,9 +217,9 @@ int nmea_igen_static_init(nmeaGENERATOR *gen, nmeaINFO *info)
     return 1;
 }
 
-///////////////////////////////////////////////////////////
-// SAT_ROTATE generator
-///////////////////////////////////////////////////////////
+/*
+ * SAT_ROTATE generator
+ */
 
 int nmea_igen_rotate_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 {
@@ -272,41 +272,30 @@ int nmea_igen_rotate_init(nmeaGENERATOR *gen, nmeaINFO *info)
     return 1;
 }
 
-///////////////////////////////////////////////////////////
-// POS_RANDMOVE generator
-///////////////////////////////////////////////////////////
+/*
+ * POS_RANDMOVE generator
+ */
 
 int nmea_igen_pos_rmove_init(nmeaGENERATOR *gen, nmeaINFO *info)
 {    
-    double **az = ((double **)&(gen->gen_data));
-
     info->sig = 3;
     info->fix = 3;
-
-    if(0 == (*az = malloc(sizeof(double))))
-    {
-        nmea_error("Insufficient memory!");
-        return 0;
-    }
-
-    **az = 0;
+    info->direction = info->declination = 0;
     info->speed = 20;
-
     return 1;
 }
 
 int nmea_igen_pos_rmove_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 {
-    double *az = ((double *)gen->gen_data);
     nmeaPOS crd;
 
-    *az += nmea_random(-10, 10);
+    info->direction += nmea_random(-10, 10);
     info->speed += nmea_random(-2, 3);
 
-    if(*az < 0)
-        *az = 359 + *az;
-    if(*az > 359)
-        *az -= 359;
+    if(info->direction < 0)
+        info->direction = 359 + info->direction;
+    if(info->direction > 359)
+        info->direction -= 359;
 
     if(info->speed > 40)
         info->speed = 40;
@@ -314,23 +303,22 @@ int nmea_igen_pos_rmove_loop(nmeaGENERATOR *gen, nmeaINFO *info)
         info->speed = 1;
 
     nmea_info2pos(info, &crd);
-    nmea_move_horz(&crd, &crd, *az, info->speed / 3600);
+    nmea_move_horz(&crd, &crd, info->direction, info->speed / 3600);
     nmea_pos2info(&crd, info);
+
+    info->declination = info->direction;
 
     return 1;
 };
 
 int nmea_igen_pos_rmove_destroy(nmeaGENERATOR *gen)
 {
-    double *az = ((double *)gen->gen_data);
-    if(az)
-        free(az);
     return 1;
 };
 
-///////////////////////////////////////////////////////////
-// generator create
-///////////////////////////////////////////////////////////
+/*
+ * generator create
+ */
 
 nmeaGENERATOR * __nmea_create_generator(int type, nmeaINFO *info)
 {

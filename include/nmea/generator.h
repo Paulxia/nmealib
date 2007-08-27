@@ -1,12 +1,12 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 #ifndef __NMEA_GENERATOR_H__
 #define __NMEA_GENERATOR_H__
@@ -17,9 +17,9 @@
 extern "C" {
 #endif
 
-///////////////////////////////////////////////////////////
-// high level
-///////////////////////////////////////////////////////////
+/*
+ * high level
+ */
 
 struct _nmeaGENERATOR;
 
@@ -40,15 +40,15 @@ struct _nmeaGENERATOR * nmea_create_generator(int type, nmeaINFO *info);
 void    nmea_destroy_generator(struct _nmeaGENERATOR *gen);
 
 int     nmea_generate_from(
-        char *buff, int buff_sz,    // buffer
-        nmeaINFO *info,             // source info
-        struct _nmeaGENERATOR *gen, // generator
-        int generate_mask           // mask of sentence`s (e.g. GPGGA | GPGSA)
+        char *buff, int buff_sz,    /* buffer */
+        nmeaINFO *info,             /* source info */
+        struct _nmeaGENERATOR *gen, /* generator */
+        int generate_mask           /* mask of sentence`s (e.g. GPGGA | GPGSA) */
         );
 
-///////////////////////////////////////////////////////////
-// low level
-///////////////////////////////////////////////////////////
+/*
+ * low level
+ */
 
 typedef int (*nmeaNMEA_GEN_INIT)(struct _nmeaGENERATOR *gen, nmeaINFO *info);
 typedef int (*nmeaNMEA_GEN_LOOP)(struct _nmeaGENERATOR *gen, nmeaINFO *info);
@@ -76,4 +76,4 @@ void    nmea_gen_add(nmeaGENERATOR *to, nmeaGENERATOR *gen);
 }
 #endif
 
-#endif // __NMEA_GENERATOR_H__
+#endif /* __NMEA_GENERATOR_H__ */

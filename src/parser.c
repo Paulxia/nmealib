@@ -1,12 +1,12 @@
-///////////////////////////////////////////////////////////
-//
-// NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
-//
-///////////////////////////////////////////////////////////
+/*
+ *
+ * NMEA library
+ * URL: http://nmea.sourceforge.net
+ * Author: Tim (xtimor@gmail.com)
+ * Licence: http://www.gnu.org/licenses/lgpl.html
+ * $Id$
+ *
+ */
 
 /**
  * \file parser.h
@@ -28,9 +28,9 @@ typedef struct _nmeaParserNODE
 
 } nmeaParserNODE;
 
-///////////////////////////////////////////////////////////
-// high level
-///////////////////////////////////////////////////////////
+/*
+ * high level
+ */
 
 /**
  * \brief Initialization of parser object
@@ -113,9 +113,9 @@ int nmea_parse(
     return nread;
 }
 
-///////////////////////////////////////////////////////////
-// low level
-///////////////////////////////////////////////////////////
+/*
+ * low level
+ */
 
 int nmea_parser_real_push(nmeaPARSER *parser, const char *buff, int buff_sz)
 {
@@ -124,7 +124,7 @@ int nmea_parser_real_push(nmeaPARSER *parser, const char *buff, int buff_sz)
 
     NMEA_ASSERT(parser && parser->buffer);
 
-    // clear unuse buffer (for debug)
+    /* clear unuse buffer (for debug) */
     /*
     memset(
         parser->buffer + parser->buff_use, 0,
@@ -132,14 +132,14 @@ int nmea_parser_real_push(nmeaPARSER *parser, const char *buff, int buff_sz)
         );
         */
 
-    // add
+    /* add */
     if(parser->buff_use + buff_sz >= parser->buff_size)
         nmea_parser_buff_clear(parser);
 
     memcpy(parser->buffer + parser->buff_use, buff, buff_sz);
     parser->buff_use += buff_sz;
 
-    // parse
+    /* parse */
     for(;;node = 0)
     {
         sen_sz = nmea_find_tail(
