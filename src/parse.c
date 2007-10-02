@@ -76,7 +76,8 @@ int nmea_pack_type(const char *buff, int buff_sz)
         "GPGGA",
         "GPGSA",
         "GPGSV",
-        "GPRMC"
+        "GPRMC",
+        "GPVTG",
     };
 
     NMEA_ASSERT(buff);
@@ -91,6 +92,8 @@ int nmea_pack_type(const char *buff, int buff_sz)
         return GPGSV;
     else if(0 == memcmp(buff, pheads[3], 5))
         return GPRMC;
+    else if(0 == memcmp(buff, pheads[4], 5))
+        return GPVTG;
 
     return GPNON;
 }
@@ -338,6 +341,7 @@ void nmea_GPGGA2info(nmeaGPGGA *pack, nmeaINFO *info)
     info->elv = pack->elv;
     info->lat = ((pack->ns == 'N')?pack->lat:-(pack->lat));
     info->lon = ((pack->ew == 'E')?pack->lon:-(pack->lon));
+    info->smask |= GPGGA;
 }
 
 /**
@@ -369,6 +373,7 @@ void nmea_GPGSA2info(nmeaGPGSA *pack, nmeaINFO *info)
     }
 
     info->satinfo.inuse = nuse;
+    info->smask |= GPGSA;
 }
 
 /**
@@ -402,6 +407,8 @@ void nmea_GPGSV2info(nmeaGPGSV *pack, nmeaINFO *info)
         info->satinfo.sat[isi].azimuth = pack->sat_data[isat].azimuth;
         info->satinfo.sat[isi].sig = pack->sat_data[isat].sig;
     }
+
+    info->smask |= GPGSV;
 }
 
 /**
@@ -431,6 +438,7 @@ void nmea_GPRMC2info(nmeaGPRMC *pack, nmeaINFO *info)
     info->lon = ((pack->ew == 'E')?pack->lon:-(pack->lon));
     info->speed = pack->speed * NMEA_TUD_KNOTS;
     info->direction = pack->direction;
+    info->smask |= GPRMC;
 }
 
 /**
@@ -445,4 +453,5 @@ void nmea_GPVTG2info(nmeaGPVTG *pack, nmeaINFO *info)
     info->direction = pack->dir;
     info->declination = pack->dec;
     info->speed = pack->spk;
+    info->smask |= GPVTG;
 }

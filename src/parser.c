@@ -105,6 +105,9 @@ int nmea_parse(
         case GPRMC:
             nmea_GPRMC2info((nmeaGPRMC *)pack, info);
             break;
+        case GPVTG:
+            nmea_GPVTG2info((nmeaGPVTG *)pack, info);
+            break;
         };
 
         free(pack);
@@ -211,6 +214,18 @@ int nmea_parser_real_push(nmeaPARSER *parser, const char *buff, int buff_sz)
                 if(!nmea_parse_GPRMC(
                     (const char *)parser->buffer + nparsed,
                     sen_sz, (nmeaGPRMC *)node->pack))
+                {
+                    free(node);
+                    node = 0;
+                }
+                break;
+            case GPVTG:
+                if(0 == (node->pack = malloc(sizeof(nmeaGPVTG))))
+                    goto mem_fail;
+                node->packType = GPVTG;
+                if(!nmea_parse_GPVTG(
+                    (const char *)parser->buffer + nparsed,
+                    sen_sz, (nmeaGPVTG *)node->pack))
                 {
                     free(node);
                     node = 0;
