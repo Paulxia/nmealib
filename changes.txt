@@ -1,0 +1,8 @@
+CHANGES
+
+version 0.4.4
+- fix makefiles (Thanks for Thomas1970 and Sereg@)
+
+version 0.4.3
+- fix bugs #1805550, #1780086, #1778485
+- fix parse VTG packet
