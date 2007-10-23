@@ -1,7 +1,12 @@
 CHANGES
 
+version 0.5.0
+- add nmea_distance_ellipsoid, nmea_move_horz_ellipsoid in math.h and sample (Thanks Thomas1970)
+- fix makefiles (Thanks for Sereg@ and Thomas1970)
+- fix inline functions in math.h
+
 version 0.4.4
-- fix makefiles (Thanks for Thomas1970 and Sereg@)
+- fix makefiles (Thanks for Sereg@ and Thomas1970)
 
 version 0.4.3
 - fix bugs #1805550, #1780086, #1778485

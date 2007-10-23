@@ -1,6 +1,9 @@
 #include <nmea/nmea.h>
-#include <windows.h>
 #include <stdio.h>
+#ifdef NMEA_WIN
+#include <windows.h>
+#else
+#endif
 
 int main()
 {
@@ -38,7 +41,11 @@ int main()
         buff[gen_sz] = 0;
         printf("%s\n", &buff[0]);
 
+#ifdef NMEA_WIN
         Sleep(500);
+#else
+        sleep(500);
+#endif        
 
         info.speed += .1;
     }

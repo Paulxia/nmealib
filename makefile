@@ -2,28 +2,41 @@ CC = gcc
  
 BIN = lib/libnmea.a 
 MODULES = generate generator parse parser tok context time info math sentence  
+SAMPLES = generate generator parse parse_file math
  
 OBJ = $(MODULES:%=build/nmea_gcc/%.o) 
 LINKOBJ = $(OBJ) $(RES)
+
+SMPLS = $(SAMPLES:%=samples_%)
+SMPLOBJ = $(SAMPLES:%=samples/%/main.o)
+
 INCS = -I include 
+LIBS = -lm -Llib -lnmea
  
 .PHONY: all all-before all-after clean clean-custom doc
  
-all: all-before $(BIN) all-after 
+all: all-before $(BIN) samples all-after 
 
 all-before:
 	mkdir -p build/nmea_gcc
 
 clean: clean-custom 
-	rm -f $(LINKOBJ) $(BIN) 
+	rm -f $(LINKOBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
 
 doc:
 	$(MAKE) -C doc
 
 $(BIN): $(LINKOBJ)
-	ar r $(BIN) $(LINKOBJ)
-	ranlib $(BIN)
+	ar rsc $@ $^
+	ranlib $@
 
 build/nmea_gcc/%.o: src/%.c 
 	$(CC) $(INCS) -c $< -o $@
 
+samples: $(SMPLS)
+
+samples_%: samples/%/main.o
+	$(CC) $< $(LIBS) -o build/$@
+
+samples/%/main.o: samples/%/main.c
+	$(CC) $(INCS) -c $< -o $@
