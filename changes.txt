@@ -1,5 +1,9 @@
 CHANGES
 
+version 0.5.1
+- fix elevation value type (bug #1832486)
+- fix parsing of GPRMC - nmea_GPRMC2info
+
 version 0.5.0
 - add nmea_distance_ellipsoid, nmea_move_horz_ellipsoid in math.h and sample (Thanks Thomas1970)
 - fix makefiles (Thanks for Sereg@ and Thomas1970)
