@@ -387,7 +387,7 @@ void nmea_GPGSV2info(nmeaGPGSV *pack, nmeaINFO *info)
 
     NMEA_ASSERT(pack && info);
 
-    if( pack->pack_index > pack->pack_count ||
+    if(pack->pack_index > pack->pack_count ||
         pack->pack_index * NMEA_SATINPACK > NMEA_MAXSAT)
         return;
 
@@ -425,7 +425,7 @@ void nmea_GPRMC2info(nmeaGPRMC *pack, nmeaINFO *info)
         if(NMEA_SIG_BAD == info->sig)
             info->sig = NMEA_SIG_MID;
         if(NMEA_FIX_BAD == info->fix)
-            info->sig = NMEA_FIX_2D;
+            info->fix = NMEA_FIX_2D;
     }
     else if('V' == pack->status)
     {
