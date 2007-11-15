@@ -19,6 +19,7 @@ int main()
     info.lat = 5000.0;
     info.lon = 3600.0;
     info.speed = 2.14 * NMEA_TUS_MS;
+    info.elv = 10.86;
 
     info.satinfo.inuse = 1;
     info.satinfo.inview = 1;

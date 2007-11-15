@@ -163,7 +163,7 @@ int nmea_parse_GPGGA(const char *buff, int buff_sz, nmeaGPGGA *pack)
     nmea_trace_buff(buff, buff_sz);
 
     if(17 != nmea_scanf(buff, buff_sz,
-        "$GPGGA,%2d%2d%2d.%d,%f,%C,%f,%C,%d,%d,%f,%d,%C,%f,%C,%f,%d*",
+        "$GPGGA,%2d%2d%2d.%d,%f,%C,%f,%C,%d,%d,%f,%f,%C,%f,%C,%f,%d*",
         &(pack->utc_time.hour), &(pack->utc_time.min), &(pack->utc_time.sec), &(pack->utc_time.hsec),
         &(pack->lat), &(pack->ns), &(pack->lon), &(pack->ew),
         &(pack->sig), &(pack->satinuse), &(pack->HDOP), &(pack->elv), &(pack->elv_units),
