@@ -158,7 +158,7 @@ int nmea_parser_real_push(nmeaPARSER *parser, const char *buff, int buff_sz)
                 parser->buff_use -= nparsed);
             break;
         }
-        else if(crc)
+        else if(crc >= 0)
         {
             ptype = nmea_pack_type(
                 (const char *)parser->buffer + nparsed + 1,

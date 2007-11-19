@@ -1,5 +1,8 @@
 CHANGES
 
+version 0.5.2
+- fix CRC error (bug #1833200)
+
 version 0.5.1
 - fix elevation value type (bug #1832486)
 - fix parsing of GPRMC - nmea_GPRMC2info

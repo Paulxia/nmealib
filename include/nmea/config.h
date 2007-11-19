@@ -11,10 +11,10 @@
 #ifndef __NMEA_CONFIG_H__
 #define __NMEA_CONFIG_H__
 
-#define NMEA_VERSION        ("0.5.1")
+#define NMEA_VERSION        ("0.5.2")
 #define NMEA_VERSION_MAJOR  (0)
 #define NMEA_VERSION_MINOR  (5)
-#define NMEA_VERSION_PATCH  (1)
+#define NMEA_VERSION_PATCH  (2)
 
 #define NMEA_CONVSTR_BUF    (255)
 

@@ -48,7 +48,6 @@ double nmea_radian2ndeg(double val);
  */
 
 double nmea_calc_pdop(double hdop, double vdop);
-
 double nmea_dop2meters(double dop);
 double nmea_meters2dop(double meters);
 
