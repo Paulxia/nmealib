@@ -15,7 +15,7 @@
 
 #define NMEA_CONFIG_USEINFO
 #define NMEA_CONFIG_THREADSAFE
-#define NMEA_CONFIG_AUTOLOCK
+#define NMEA_CONFIG_MANUAL_LOCK
 
 /* Utility defines */
 

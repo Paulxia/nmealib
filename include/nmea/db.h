@@ -122,7 +122,7 @@ typedef struct _nmeaDB
 int nmea_db_init(nmeaDB *db);
 int nmea_db_done(nmeaDB *db);
 int nmea_db_clear(nmeaDB *db);
-int nmea_db_copy(nmeaDB *src, nmeaDB *dst);
+int nmea_db_copy(nmeaDB *src, nmeaDB *src);
 
 #ifdef NMEA_CONFIG_THREADSAFE
 int nmea_db_lock(nmeaDB *db);

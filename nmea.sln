@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nmea", "src\nmea.vcproj", "{462522F4-3517-4507-A9C9-1D51DEBC4824}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{36908705-F3E6-4F39-BA17-562767076DCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Pocket PC 2003 (ARMV4) = Debug|Pocket PC 2003 (ARMV4)
+		Debug|Win32 = Debug|Win32
+		Release|Pocket PC 2003 (ARMV4) = Release|Pocket PC 2003 (ARMV4)
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Debug|Pocket PC 2003 (ARMV4).Build.0 = Debug|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Debug|Win32.ActiveCfg = Debug|Win32
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Debug|Win32.Build.0 = Debug|Win32
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Win32.ActiveCfg = Release|Win32
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+EndGlobal
