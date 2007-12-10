@@ -8,14 +8,14 @@
  *
  */
 
-#ifndef __NMEA_CONFIG_H__
-#define __NMEA_CONFIG_H__
+#ifndef NMEA_CONFIG_H
+#define NMEA_CONFIG_H
 
 /* Build config */
 
 #define NMEA_CONFIG_USEINFO
 #define NMEA_CONFIG_THREADSAFE
-#define NMEA_CONFIG_MANUAL_LOCK
+#define NMEA_CONFIG_MATH
 
 /* Utility defines */
 
@@ -57,4 +57,4 @@
 #   define NMEA_ASSERT(x)
 #endif
 
-#endif /* __NMEA_CONFIG_H__ */
+#endif /* NMEA_CONFIG_H */

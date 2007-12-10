@@ -8,18 +8,14 @@
  *
  */
 
-#ifndef __NMEA_PARSER_H__
-#define __NMEA_PARSER_H__
+#ifndef NMEA_PARSE_H
+#define NMEA_PARSE_H
 
 #include "db.h"
 
 #ifdef  __cplusplus
 extern "C" {
 #endif
-
-/*
- * high level
- */
 
 typedef struct _nmeaPARSER
 {
@@ -31,7 +27,8 @@ typedef struct _nmeaPARSER
 
 } nmeaPARSER;
 
-int     nmea_parser_init(nmeaPARSER *parser);
+int     nmea_parser_init(nmeaPARSER *parser, int parse_mask);
+void    nmea_parser_clear(nmeaPARSER *parser);
 void    nmea_parser_destroy(nmeaPARSER *parser);
 
 int     nmea_parse(
@@ -40,20 +37,8 @@ int     nmea_parse(
         nmeaDB *db
         );
 
-/*
- * low level
- */
-
-int     nmea_parser_push(nmeaPARSER *parser, const char *buff, int buff_sz);
-int     nmea_parser_top(nmeaPARSER *parser);
-int     nmea_parser_pop(nmeaPARSER *parser, void **pack_ptr);
-int     nmea_parser_peek(nmeaPARSER *parser, void **pack_ptr);
-int     nmea_parser_drop(nmeaPARSER *parser);
-int     nmea_parser_buff_clear(nmeaPARSER *parser);
-int     nmea_parser_queue_clear(nmeaPARSER *parser);
-
 #ifdef  __cplusplus
 }
 #endif
 
-#endif /* __NMEA_PARSER_H__ */
+#endif /* NMEA_PARSE_H */

@@ -10,8 +10,8 @@
 
 /*! \file */
 
-#ifndef __NMEA_DB_H__
-#define __NMEA_DB_H__
+#ifndef NMEA_DB_H
+#define NMEA_DB_H
 
 #include "config.h"
 #include "variant.h"
@@ -42,7 +42,8 @@ enum _nmeaPACKET_TYPE
     NMEA_PT_GPGSA   = 0x0002,
     NMEA_PT_GPGSV   = 0x0004,
     NMEA_PT_GPRMC   = 0x0008,
-    NMEA_PT_GPVTG   = 0x0010
+    NMEA_PT_GPVTG   = 0x0010,
+    NMEA_PT_ALL     = 0xFFFF
 };
 
 /**
@@ -119,35 +120,45 @@ typedef struct _nmeaDB
 
 } nmeaDB;
 
-int nmea_db_init(nmeaDB *db);
-int nmea_db_done(nmeaDB *db);
-int nmea_db_clear(nmeaDB *db);
-int nmea_db_copy(nmeaDB *src, nmeaDB *src);
+int     nmea_db_init(nmeaDB *db);
+int     nmea_db_done(nmeaDB *db);
+int     nmea_db_clear(nmeaDB *db);
+int     nmea_db_copy(nmeaDB *src, nmeaDB *src);
 
 #ifdef NMEA_CONFIG_THREADSAFE
-int nmea_db_lock(nmeaDB *db);
-int nmea_db_unlock(nmeaDB *db);
+int     nmea_db_lock(nmeaDB *db);
+int     nmea_db_unlock(nmeaDB *db);
 #else
 #   define nmea_db_lock(x)
 #   define nmea_db_unlock(x)
 #endif
 
-int nmea_db_getv(nmeaDB *db, int index, nmeaVARIANT *);
-int nmea_db_setv(nmeaDB *db, int index, nmeaVARIANT *);
-int nmea_db_get(nmeaDB *db, int index, int value_type, ...);
-int nmea_db_set(nmeaDB *db, int index, int value_type, ...);
+int     nmea_db_getv(nmeaDB *db, int index, nmeaVARIANT *);
+int     nmea_db_setv(nmeaDB *db, int index, nmeaVARIANT *);
+int     nmea_db_get(nmeaDB *db, int index, int value_type, ...);
+int     nmea_db_set(nmeaDB *db, int index, int value_type, ...);
 
-char nmea_db_char(nmeaDB *db, int index);
-short nmea_db_short(nmeaDB *db, int index);
-int nmea_db_int(nmeaDB *db, int index);
-long nmea_db_long(nmeaDB *db, int index);
-float nmea_db_float(nmeaDB *db, int index);
-double nmea_db_double(nmeaDB *db, int index);
-char * nmea_db_string(nmeaDB *db, int index);
-int nmea_db_satinfo(nmeaDB *db, nmeaSATINFO *info);
+char    nmea_db_char(nmeaDB *db, int index);
+short   nmea_db_short(nmeaDB *db, int index);
+int     nmea_db_int(nmeaDB *db, int index);
+long    nmea_db_long(nmeaDB *db, int index);
+float   nmea_db_float(nmeaDB *db, int index);
+double  nmea_db_double(nmeaDB *db, int index);
+char *  nmea_db_string(nmeaDB *db, int index);
+int     nmea_db_satinfo(nmeaDB *db, nmeaSATINFO *info);
+
+bool    nmea_db_set_char(nmeaDB *db, int index, char value);
+bool    nmea_db_set_short(nmeaDB *db, int index, short value);
+bool    nmea_db_set_int(nmeaDB *db, int index, int value);
+bool    nmea_db_set_long(nmeaDB *db, int index, long value);
+bool    nmea_db_set_float(nmeaDB *db, int index, float value);
+bool    nmea_db_set_double(nmeaDB *db, int index, double value);
+bool    nmea_db_set_string(nmeaDB *db, int index, string value);
+bool    nmea_db_set_string(nmeaDB *db, int index, string value);
+bool    nmea_db_set_satinfo(nmeaDB *db, nmeaSATINFO *info);
 
 #ifdef  __cplusplus
 }
 #endif
 
-#endif /* __NMEA_DB_H__ */
+#endif /* NMEA_DB_H */

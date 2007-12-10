@@ -10,8 +10,8 @@
 
 /*! \file */
 
-#ifndef __NMEA_INFO_H__
-#define __NMEA_INFO_H__
+#ifndef NMEA_INFO_H
+#define NMEA_INFO_H
 
 #ifdef  __cplusplus
 extern "C" {
@@ -19,14 +19,10 @@ extern "C" {
 
 #include "db.h"
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
 #ifdef NMEA_CONFIG_USEINFO
 
 #if defined(_MSC_VER)
-#   pragma message("Warning! Structure nmeaINFO is depricated. please use nmea_get, nmea_set, nmea_char, nmea_short ...")
+#   pragma message("Warning! Structure nmeaINFO is depricated, please use nmeaDB")
 #endif
 
 /**
@@ -70,4 +66,4 @@ int nmea_set_info(nmeaDB *db, nmeaINFO *info);
 }
 #endif
 
-#endif /* __NMEA_INFO_H__ */
+#endif /* NMEA_INFO_H */

@@ -10,8 +10,8 @@
 
 /*! \file */
 
-#ifndef __NMEA_HASH_H__
-#define __NMEA_HASH_H__
+#ifndef NMEA_HASH_H
+#define NMEA_HASH_H
 
 #include "variant.h"
 
@@ -36,4 +36,4 @@ int nmea_hash_set(nmeaHASH *hash, int index, nmeaVARIANT *value);
 }
 #endif
 
-#endif /* __NMEA_HASH_H__ */
+#endif /* NMEA_HASH_H */

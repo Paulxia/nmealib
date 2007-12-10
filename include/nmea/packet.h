@@ -10,8 +10,8 @@
 
 /*! \file */
 
-#ifndef __NMEA_PACKET_H__
-#define __NMEA_PACKET_H__
+#ifndef NMEA_PACKET_H
+#define NMEA_PACKET_H
 
 #ifdef  __cplusplus
 extern "C" {
@@ -22,8 +22,8 @@ typedef struct _nmeaPACKET_HANDLER
     struct _nmeaPACKET_HANDLER *next;
     int packet_id;
     int (*check)(const char *header, int header_sz);
-    int (*scanf)(const char *nmea, int nmea_sz);
-    int (*printf)(char *buff, int buff_sz);
+    int (*scanf)(struct _nmeaDB *db, const char *nmea, int nmea_sz);
+    int (*printf)(struct _nmeaDB *db, char *buff, int buff_sz);
 
 } nmeaPACKET_HANDLER;
 
@@ -34,4 +34,4 @@ int nmea_packet_add(nmeaPACKET_HANDLER *packet);
 }
 #endif
 
-#endif /* __NMEA_PACKET_H__ */
+#endif /* NMEA_PACKET_H */

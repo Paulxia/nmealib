@@ -10,8 +10,8 @@
 
 /*! \file */
 
-#ifndef __NMEA_VARIANT_H__
-#define __NMEA_VARIANT_H__
+#ifndef NMEA_VARIANT_H
+#define NMEA_VARIANT_H
 
 #ifdef  __cplusplus
 extern "C" {
@@ -53,4 +53,4 @@ int nmea_variant_convert(nmeaVARIANT *src, nmeaVARIANT *dst);
 }
 #endif
 
-#endif /* __NMEA_VARIANT_H__ */
+#endif /* NMEA_VARIANT_H */

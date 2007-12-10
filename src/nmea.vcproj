@@ -310,6 +310,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\include\nmea\generate.h"
+			>
+		</File>
+		<File
 			RelativePath="..\include\nmea\hash.h"
 			>
 		</File>
@@ -322,7 +326,7 @@
 			>
 		</File>
 		<File
-			RelativePath="..\include\nmea\parser.h"
+			RelativePath="..\include\nmea\parse.h"
 			>
 		</File>
 		<File
