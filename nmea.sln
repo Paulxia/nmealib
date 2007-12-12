@@ -5,6 +5,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nmea", "src\nmea.vcproj", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{36908705-F3E6-4F39-BA17-562767076DCA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parse", "samples\parse\parse.vcproj", "{C2750C56-289A-47B9-8CCF-2E754D356D40}"
+	ProjectSection(ProjectDependencies) = postProject
+		{462522F4-3517-4507-A9C9-1D51DEBC4824} = {462522F4-3517-4507-A9C9-1D51DEBC4824}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Pocket PC 2003 (ARMV4) = Debug|Pocket PC 2003 (ARMV4)
@@ -21,9 +26,22 @@ Global
 		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release|Pocket PC 2003 (ARMV4)
 		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Win32.ActiveCfg = Release|Win32
 		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Win32.Build.0 = Release|Win32
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Pocket PC 2003 (ARMV4)
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Debug|Pocket PC 2003 (ARMV4).Build.0 = Debug|Pocket PC 2003 (ARMV4)
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Debug|Pocket PC 2003 (ARMV4).Deploy.0 = Debug|Pocket PC 2003 (ARMV4)
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Debug|Win32.Build.0 = Debug|Win32
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Pocket PC 2003 (ARMV4)
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release|Pocket PC 2003 (ARMV4)
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Release|Pocket PC 2003 (ARMV4).Deploy.0 = Release|Pocket PC 2003 (ARMV4)
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Release|Win32.ActiveCfg = Release|Win32
+		{C2750C56-289A-47B9-8CCF-2E754D356D40}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2750C56-289A-47B9-8CCF-2E754D356D40} = {36908705-F3E6-4F39-BA17-562767076DCA}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
