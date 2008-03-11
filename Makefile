@@ -1,7 +1,7 @@
 CC = gcc 
  
 BIN = lib/libnmea.a 
-MODULES = generate generator parse parser tok context time info math sentence  
+MODULES = generate generator parse parser tok context time info gmath sentence  
 SAMPLES = generate generator parse parse_file math
  
 OBJ = $(MODULES:%=build/nmea_gcc/%.o) 

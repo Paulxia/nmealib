@@ -8,11 +8,11 @@
  *
  */
 
+#include "nmea/context.h"
+
 #include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
-
-#include "nmea/context.h"
 
 nmeaPROPERTY * nmea_property()
 {

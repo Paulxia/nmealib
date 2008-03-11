@@ -54,14 +54,41 @@
  * \endcode
  */
 
-#include <string.h>
-#include <stdio.h>
-
 #include "nmea/tok.h"
 #include "nmea/parse.h"
 #include "nmea/context.h"
-#include "nmea/math.h"
+#include "nmea/gmath.h"
 #include "nmea/units.h"
+
+#include <string.h>
+#include <stdio.h>
+
+int _nmea_parse_time(const char *buff, int buff_sz, nmeaTIME *res)
+{
+    int success = 0;
+
+    switch(buff_sz)
+    {
+    case sizeof("hhmmss") - 1:
+        success = (3 == nmea_scanf(buff, buff_sz,
+            "%2d%2d%2d", &(res->hour), &(res->min), &(res->sec)
+            ));
+        break;
+    case sizeof("hhmmss.s") - 1:
+    case sizeof("hhmmss.ss") - 1:
+    case sizeof("hhmmss.sss") - 1:
+        success = (4 == nmea_scanf(buff, buff_sz,
+            "%2d%2d%2d.%d", &(res->hour), &(res->min), &(res->sec), &(res->hsec)
+            ));
+        break;
+    default:
+        nmea_error("Parse of time error (format error)!");
+        success = 0;
+        break;
+    }
+
+    return (success?0:-1);        
+}
 
 /**
  * \brief Define packet type by header (nmeaPACKTYPE).
@@ -158,20 +185,28 @@ int nmea_find_tail(const char *buff, int buff_sz, int *res_crc)
  */
 int nmea_parse_GPGGA(const char *buff, int buff_sz, nmeaGPGGA *pack)
 {
+    char time_buff[NMEA_TIMEPARSE_BUF];
+
     NMEA_ASSERT(buff && pack);
 
     memset(pack, 0, sizeof(nmeaGPGGA));
 
     nmea_trace_buff(buff, buff_sz);
 
-    if(17 != nmea_scanf(buff, buff_sz,
-        "$GPGGA,%2d%2d%2d.%d,%f,%C,%f,%C,%d,%d,%f,%f,%C,%f,%C,%f,%d*",
-        &(pack->utc_time.hour), &(pack->utc_time.min), &(pack->utc_time.sec), &(pack->utc_time.hsec),
+    if(14 != nmea_scanf(buff, buff_sz,
+        "$GPGGA,%s,%f,%C,%f,%C,%d,%d,%f,%f,%C,%f,%C,%f,%d*",
+        &(time_buff[0]),
         &(pack->lat), &(pack->ns), &(pack->lon), &(pack->ew),
         &(pack->sig), &(pack->satinuse), &(pack->HDOP), &(pack->elv), &(pack->elv_units),
         &(pack->diff), &(pack->diff_units), &(pack->dgps_age), &(pack->dgps_sid)))
     {
         nmea_error("GPGGA parse error!");
+        return 0;
+    }
+
+    if(0 != _nmea_parse_time(&time_buff[0], (int)strlen(&time_buff[0]), &(pack->utc)))
+    {
+        nmea_error("GPGGA time parse error!");
         return 0;
     }
 
@@ -259,6 +294,7 @@ int nmea_parse_GPGSV(const char *buff, int buff_sz, nmeaGPGSV *pack)
 int nmea_parse_GPRMC(const char *buff, int buff_sz, nmeaGPRMC *pack)
 {
     int nsen;
+    char time_buff[NMEA_TIMEPARSE_BUF];
 
     NMEA_ASSERT(buff && pack);
 
@@ -267,16 +303,22 @@ int nmea_parse_GPRMC(const char *buff, int buff_sz, nmeaGPRMC *pack)
     nmea_trace_buff(buff, buff_sz);
 
     nsen = nmea_scanf(buff, buff_sz,
-        "$GPRMC,%2d%2d%2d.%d,%C,%f,%C,%f,%C,%f,%f,%2d%2d%2d,%f,%C,%C*",
-        &(pack->utc.hour), &(pack->utc.min), &(pack->utc.sec), &(pack->utc.hsec),
+        "$GPRMC,%s,%C,%f,%C,%f,%C,%f,%f,%2d%2d%2d,%f,%C,%C*",
+        &(time_buff[0]),
         &(pack->status), &(pack->lat), &(pack->ns), &(pack->lon), &(pack->ew),
         &(pack->speed), &(pack->direction),
         &(pack->utc.day), &(pack->utc.mon), &(pack->utc.year),
         &(pack->declination), &(pack->declin_ew), &(pack->mode));
 
-    if(nsen != 16 && nsen != 17)
+    if(nsen != 13 && nsen != 14)
     {
         nmea_error("GPRMC parse error!");
+        return 0;
+    }
+
+    if(0 != _nmea_parse_time(&time_buff[0], (int)strlen(&time_buff[0]), &(pack->utc)))
+    {
+        nmea_error("GPRMC time parse error!");
         return 0;
     }
 
@@ -334,10 +376,10 @@ void nmea_GPGGA2info(nmeaGPGGA *pack, nmeaINFO *info)
 {
     NMEA_ASSERT(pack && info);
 
-    info->utc.hour = pack->utc_time.hour;
-    info->utc.min = pack->utc_time.min;
-    info->utc.sec = pack->utc_time.sec;
-    info->utc.hsec = pack->utc_time.hsec;
+    info->utc.hour = pack->utc.hour;
+    info->utc.min = pack->utc.min;
+    info->utc.sec = pack->utc.sec;
+    info->utc.hsec = pack->utc.hsec;
     info->sig = pack->sig;
     info->HDOP = pack->HDOP;
     info->elv = pack->elv;

@@ -10,14 +10,14 @@
 
 /*! \file tok.h */
 
+#include "nmea/tok.h"
+
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include <limits.h>
-
-#include "nmea/tok.h"
 
 #define NMEA_TOKS_COMPARE   (1)
 #define NMEA_TOKS_PERCENT   (2)
@@ -160,7 +160,7 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
 
             if(width)
             {
-                if(buff + width < end_buf)
+                if(buff + width <= end_buf)
                     buff += width;
                 else
                     goto fail;
@@ -168,10 +168,10 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
             else
             {
                 if(!format[1] || (0 == (buff = (char *)memchr(buff, format[1], end_buf - buff))))
-                    buff = end_buf - 1;
+                    buff = end_buf;
             }
 
-            if(buff >= end_buf)
+            if(buff > end_buf)
                 goto fail;
 
             tok_type = NMEA_TOKS_COMPARE;

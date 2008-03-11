@@ -37,7 +37,7 @@ enum nmeaPACKTYPE
  */
 typedef struct _nmeaGPGGA
 {
-    nmeaTIME utc_time;  /**< UTC of position (just time) */
+    nmeaTIME utc;       /**< UTC of position (just time) */
 	double  lat;        /**< Latitude in NDEG - [degree][min].[sec/60] */
     char    ns;         /**< [N]orth or [S]outh */
 	double  lon;        /**< Longitude in NDEG - [degree][min].[sec/60] */

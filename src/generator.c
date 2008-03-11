@@ -8,14 +8,13 @@
  *
  */
 
-#include <memory.h>
-#include <malloc.h>
-#include <stdlib.h>
-
-#include "nmea/math.h"
+#include "nmea/gmath.h"
 #include "nmea/generate.h"
 #include "nmea/generator.h"
 #include "nmea/context.h"
+
+#include <string.h>
+#include <stdlib.h>
 
 #if defined(NMEA_WIN) && defined(_MSC_VER)
 # pragma warning(disable: 4100) /* unreferenced formal parameter */

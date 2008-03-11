@@ -8,20 +8,20 @@
  *
  */
 
-#include <memory.h>
-#include <malloc.h>
-#include <math.h>
-
 #include "nmea/tok.h"
 #include "nmea/sentence.h"
 #include "nmea/generate.h"
 #include "nmea/units.h"
 
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
 int nmea_gen_GPGGA(char *buff, int buff_sz, nmeaGPGGA *pack)
 {
     return nmea_printf(buff, buff_sz,
         "$GPGGA,%02d%02d%02d.%02d,%07.4f,%C,%07.4f,%C,%1d,%02d,%03.1f,%03.1f,%C,%03.1f,%C,%03.1f,%04d",
-        pack->utc_time.hour, pack->utc_time.min, pack->utc_time.sec, pack->utc_time.hsec,
+        pack->utc.hour, pack->utc.min, pack->utc.sec, pack->utc.hsec,
         pack->lat, pack->ns, pack->lon, pack->ew,
         pack->sig, pack->satinuse, pack->HDOP, pack->elv, pack->elv_units,
         pack->diff, pack->diff_units, pack->dgps_age, pack->dgps_sid);
@@ -77,7 +77,7 @@ void nmea_info2GPGGA(const nmeaINFO *info, nmeaGPGGA *pack)
 {
     nmea_zero_GPGGA(pack);
 
-    pack->utc_time = info->utc;
+    pack->utc = info->utc;
     pack->lat = fabs(info->lat);
     pack->ns = ((info->lat > 0)?'N':'S');
     pack->lon = fabs(info->lon);

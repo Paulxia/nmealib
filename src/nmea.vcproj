@@ -338,19 +338,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\gmath.c"
+			>
+		</File>
+		<File
+			RelativePath="..\include\nmea\gmath.h"
+			>
+		</File>
+		<File
 			RelativePath=".\info.c"
 			>
 		</File>
 		<File
 			RelativePath="..\include\nmea\info.h"
-			>
-		</File>
-		<File
-			RelativePath=".\math.c"
-			>
-		</File>
-		<File
-			RelativePath="..\include\nmea\math.h"
 			>
 		</File>
 		<File

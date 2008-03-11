@@ -8,7 +8,7 @@
  *
  */
 
-#include <memory.h>
+#include <string.h>
 
 #include "nmea/info.h"
 

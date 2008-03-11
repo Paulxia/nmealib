@@ -8,8 +8,8 @@
  *
  */
 
-#ifndef __NMEA_MATH_H__
-#define __NMEA_MATH_H__
+#ifndef __NMEA_GMATH_H__
+#define __NMEA_GMATH_H__
 
 #include "info.h"
 
@@ -89,4 +89,4 @@ int     nmea_move_horz_ellipsoid(
 }
 #endif
 
-#endif /* __NMEA_MATH_H__ */
+#endif /* __NMEA_GMATH_H__ */

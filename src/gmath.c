@@ -8,12 +8,12 @@
  *
  */
 
-/*! \file math.h */
+/*! \file gmath.h */
+
+#include "nmea/gmath.h"
 
 #include <math.h>
 #include <float.h>
-
-#include "nmea/math.h"
 
 /**
  * \fn nmea_degree2radian

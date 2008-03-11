@@ -8,14 +8,14 @@
  *
  */
 
-#include <memory.h>
-
 #include "nmea/sentence.h"
+
+#include <string.h>
 
 void nmea_zero_GPGGA(nmeaGPGGA *pack)
 {
     memset(pack, 0, sizeof(nmeaGPGGA));
-    nmea_time_now(&pack->utc_time);
+    nmea_time_now(&pack->utc);
     pack->ns = 'N';
     pack->ew = 'E';
     pack->elv_units = 'M';
