@@ -34,6 +34,8 @@ extern "C" {
  */
 typedef struct _nmeaINFO
 {
+    nmeaDB db;
+
     int     smask;      /**< Mask specifying types of packages from which data have been obtained */
 
     nmeaTIME utc;       /**< UTC of position */

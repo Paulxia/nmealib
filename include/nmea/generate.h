@@ -11,7 +11,7 @@
 #ifndef NMEA_GENERATOR_H
 #define NMEA_GENERATOR_H
 
-#include "info.h"
+#include "db.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -19,12 +19,12 @@ extern "C" {
 
 typedef struct _nmeaGENERATOR
 {
-    nmeaPACKET_HANDLER  *handler;
+    struct _nmeaPACKET_HANDLER *handler;
 
 } nmeaGENERATOR;
 
 int     nmea_generator_init(nmeaGENERATOR *gen, int generate_mask);
-void    nmea_generator_destroy(nmeaGENERATOR *gen);
+void    nmea_generator_done(nmeaGENERATOR *gen);
 
 int     nmea_generate(
         nmeaGENERATOR *gen,

@@ -12,299 +12,175 @@
 
 #include "nmea/db.h"
 
-#include "nmea/hash.h"
 #include "os.h"
 
-#include <stdarg.h>
+typedef struct _nmeaBIND
+{
+    nmea_idx type;
+    nmea_idx size;
+    void *var;
+
+} nmeaBIND;
 
 int nmea_db_init(nmeaDB *db)
 {
+    int vars_space = sizeof(nmeaBIND) * NMEA_VALUE_LAST;
+
     os_memset(db, 0, sizeof(nmeaDB));
 
-    db->hash = (nmeaHASH *)os_malloc(sizeof(nmeaHASH));
+    if(0 == (db->vars = (nmeaBIND *)os_malloc(vars_space)))
+        return -1;
 
-    if(!db->hash)
-        goto fail;
+    os_memset(db->vars, 0, vars_space);
 
-    db->rdbuff_sz = NMEA_RDBUFF_SZ;
-    db->rdbuff = os_malloc(NMEA_RDBUFF_SZ);
-
-    if(!db->rdbuff)
-        goto fail;
-
-    if(nmea_hash_init(db->hash, NMEA_VALUE_LAST) < 0)
-        goto fail;
-
-#ifdef NMEA_CONFIG_THREADSAFE
-    if(0 == (db->lock = os_mutex_init()))
-        goto fail;
-#endif
+    db->nvar = NMEA_VALUE_LAST;
 
     return 0;
-
-fail:
-    nmea_db_done(db);
-    return -1;
 }
 
 int nmea_db_done(nmeaDB *db)
 {
-    if(db->hash)
-    {
-        if(db->hash->values)
-            nmea_hash_done(db->hash);
-        os_free(db->hash);
-    }
-
-    if(db->rdbuff)
-        os_free(db->rdbuff);
-
-#ifdef NMEA_CONFIG_THREADSAFE
-    if(db->lock)
-        os_mutex_done(db->lock);
-#endif
+    if(db->vars)
+        os_free(db->vars);
 
     os_memset(db, 0, sizeof(nmeaDB));
 
     return 0;
 }
 
-int nmea_db_clear(nmeaDB *db)
+int nmea_db_hasvar(nmeaDB *db, nmea_idx index)
 {
-    return nmea_hash_clear(db->hash);
+#ifdef NMEA_CONFIG_CHECK_RANGE
+    if(index >= db->nvar)
+        return -1;
+#endif
+    return NMEA_NONE == db->vars[index].type || !(db->vars[index].var);
 }
 
-int nmea_db_copy(nmeaDB *src, nmeaDB *dst)
+int nmea_db_bind(nmeaDB *db, nmea_idx index, void *var, nmea_idx var_type, nmea_idx var_sz)
 {
-    return nmea_hash_copy(src->hash, dst->hash);
-}
+    nmeaBIND *b = &(db->vars[index]);
 
-#ifdef NMEA_CONFIG_THREADSAFE
-int nmea_db_lock(nmeaDB *db)
-{
-    return os_mutex_lock(db->lock);
-}
-
-int nmea_db_unlock(nmeaDB *db)
-{
-    return os_mutex_unlock(db->lock);
-}
+#ifdef NMEA_CONFIG_CHECK_RANGE
+    if(index >= db->nvar)
+        return -1;
 #endif
 
-int nmea_db_get(nmeaDB *db, int index, nmeaVARIANT *var)
-{
-    nmeaVARIANT *tmp;
+    b->type = var_type;
+    b->size = var_sz;
+    b->var = var;
 
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return -1;
-
-    return nmea_variant_copy(tmp, var);
+    return 0;
 }
 
-int nmea_db_set(nmeaDB *db, int index, nmeaVARIANT *var)
+int nmea_db_unbind(nmeaDB *db, nmea_idx index)
 {
-    return nmea_hash_set(db->hash, (unsigned int)index, var);
+    nmeaBIND *b = &(db->vars[index]);
+
+#ifdef NMEA_CONFIG_CHECK_RANGE
+    if(index >= db->nvar)
+        return -1;
+#endif
+
+    b->type = NMEA_NONE;
+    b->size = 0;
+    b->var = 0;
+
+    return 0;
 }
 
-char nmea_db_char(nmeaDB *db, int index)
+int nmea_db_set(nmeaDB *db, nmea_idx index, const void *var, nmea_idx var_type, int var_sz)
 {
-    nmeaVARIANT *tmp;
-    char value;
+    nmeaBIND *b = &(db->vars[index]);
 
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
+#ifdef NMEA_CONFIG_CHECK_RANGE
+    if(index >= db->nvar)
         return -1;
-    if(nmea_variant_get(tmp, NMEA_CHAR, &value, sizeof(char)) < 0)
-        return -1;
+#endif
 
+    return nmea_variable_set(b->var, b->type, b->size, var, var_type, var_sz);
+}
+
+int nmea_db_get(nmeaDB *db, nmea_idx index, void *var, nmea_idx var_type, int var_sz)
+{
+    nmeaBIND *b = &(db->vars[index]);
+
+#ifdef NMEA_CONFIG_CHECK_RANGE
+    if(index >= db->nvar)
+        return -1;
+#endif
+
+    return nmea_variable_set(var, var_type, var_sz, b->var, b->type, b->size);
+}
+
+char nmea_db_char(nmeaDB *db, nmea_idx index)
+{
+    char value = 0;
+    nmea_db_get(db, index, &value, NMEA_CHAR, sizeof(char));
     return value;
 }
 
-short nmea_db_short(nmeaDB *db, int index)
+short nmea_db_short(nmeaDB *db, nmea_idx index)
 {
-    nmeaVARIANT *tmp;
-    short value;
-
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_get(tmp, NMEA_SHORT, &value, sizeof(short)) < 0)
-        return -1;
-
+    short value = 0;
+    nmea_db_get(db, index, &value, NMEA_SHORT, sizeof(short));
     return value;
 }
 
-int nmea_db_int(nmeaDB *db, int index)
+int nmea_db_int(nmeaDB *db, nmea_idx index)
 {
-    nmeaVARIANT *tmp;
-    int value;
-
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_get(tmp, NMEA_INT, &value, sizeof(int)) < 0)
-        return -1;
-
+    int value = 0;
+    nmea_db_get(db, index, &value, NMEA_INT, sizeof(int));
     return value;
 }
 
-long nmea_db_long(nmeaDB *db, int index)
+long nmea_db_long(nmeaDB *db, nmea_idx index)
 {
-    nmeaVARIANT *tmp;
-    long value;
-
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_get(tmp, NMEA_LONG, &value, sizeof(long)) < 0)
-        return -1;
-
+    long value = 0;
+    nmea_db_get(db, index, &value, NMEA_LONG, sizeof(long));
     return value;
 }
 
-float nmea_db_float(nmeaDB *db, int index)
+float nmea_db_float(nmeaDB *db, nmea_idx index)
 {
-    nmeaVARIANT *tmp;
-    float value;
-
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return 0;
-    if(nmea_variant_get(tmp, NMEA_FLOAT, &value, sizeof(float)) < 0)
-        return 0;
-
+    float value = 0;
+    nmea_db_get(db, index, &value, NMEA_FLOAT, sizeof(float));
     return value;
 }
 
-double nmea_db_double(nmeaDB *db, int index)
+double nmea_db_double(nmeaDB *db, nmea_idx index)
 {
-    nmeaVARIANT *tmp;
-    double value;
-
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return 0;
-    if(nmea_variant_get(tmp, NMEA_DOUBLE, &value, sizeof(double)) < 0)
-        return 0;
-
+    double value = 0;
+    nmea_db_get(db, index, &value, NMEA_DOUBLE, sizeof(double));
     return value;
 }
 
-char * nmea_db_string(nmeaDB *db, int index)
+int nmea_db_set_char(nmeaDB *db, nmea_idx index, char value)
 {
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, (unsigned int)index, &tmp) < 0)
-        return 0;
-    if(nmea_variant_get(tmp, NMEA_STRING, db->rdbuff, db->rdbuff_sz) < 0)
-        return 0;
-
-    return (char *)db->rdbuff;
+    return nmea_db_set(db, index, &value, NMEA_CHAR, sizeof(char));
 }
 
-nmeaSATINFO * nmea_db_satinfo(nmeaDB *db)
+int nmea_db_set_short(nmeaDB *db, nmea_idx index, short value)
 {
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, NMEA_SAT_INFO, &tmp) < 0)
-        return 0;
-    if(nmea_variant_get(tmp, NMEA_DATA, db->rdbuff, db->rdbuff_sz) < 0)
-        return 0;
-
-    return (nmeaSATINFO *)db->rdbuff;
+    return nmea_db_set(db, index, &value, NMEA_SHORT, sizeof(short));
 }
 
-int nmea_db_set_char(nmeaDB *db, int index, char value)
+int nmea_db_set_int(nmeaDB *db, nmea_idx index, int value)
 {
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_CHAR, &value, sizeof(char)) < 0)
-        return -1;
-
-    return 0;
+    return nmea_db_set(db, index, &value, NMEA_INT, sizeof(int));
 }
 
-int nmea_db_set_short(nmeaDB *db, int index, short value)
+int nmea_db_set_long(nmeaDB *db, nmea_idx index, long value)
 {
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_SHORT, &value, sizeof(short)) < 0)
-        return -1;
-
-    return 0;
+    return nmea_db_set(db, index, &value, NMEA_LONG, sizeof(long));
 }
 
-int nmea_db_set_int(nmeaDB *db, int index, int value)
+int nmea_db_set_float(nmeaDB *db, nmea_idx index, float value)
 {
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_INT, &value, sizeof(int)) < 0)
-        return -1;
-
-    return 0;
+    return nmea_db_set(db, index, &value, NMEA_FLOAT, sizeof(float));
 }
 
-int nmea_db_set_long(nmeaDB *db, int index, long value)
+int nmea_db_set_double(nmeaDB *db, nmea_idx index, double value)
 {
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_LONG, &value, sizeof(long)) < 0)
-        return -1;
-
-    return 0;
-}
-
-int nmea_db_set_float(nmeaDB *db, int index, float value)
-{
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_FLOAT, &value, sizeof(float)) < 0)
-        return -1;
-
-    return 0;
-}
-
-int nmea_db_set_double(nmeaDB *db, int index, double value)
-{
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_DOUBLE, &value, sizeof(double)) < 0)
-        return -1;
-
-    return 0;
-}
-
-int nmea_db_set_string(nmeaDB *db, int index, char *value)
-{
-    return nmea_db_set_stringn(db, index, value, (int)os_strlen(value));
-}
-
-int nmea_db_set_stringn(nmeaDB *db, int index, char *value, int str_sz)
-{
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, index, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_STRING, value, str_sz) < 0)
-        return -1;
-
-    return 0;
-}
-
-int nmea_db_set_satinfo(nmeaDB *db, nmeaSATINFO *info)
-{
-    nmeaVARIANT *tmp;
-
-    if(nmea_hash_get(db->hash, NMEA_SAT_INFO, &tmp) < 0)
-        return -1;
-    if(nmea_variant_set(tmp, NMEA_DATA, info, sizeof(nmeaSATINFO)) < 0)
-        return -1;
-
-    return 0;
+    return nmea_db_set(db, index, &value, NMEA_DOUBLE, sizeof(double));
 }

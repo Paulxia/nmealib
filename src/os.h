@@ -25,6 +25,8 @@
 #define os_free     free
 #define os_memcpy   memcpy
 #define os_memset   memset
+#define os_memcmp   memcmp
+#define os_strchr   strchr
 
 #define os_atoi     atoi
 #define os_atof     atof
@@ -35,10 +37,5 @@
 #else
 #   define os_snprintf  _snprintf
 #endif
-
-void *  os_mutex_init(void);
-int     os_mutex_lock(void *);
-int     os_mutex_unlock(void *);
-void    os_mutex_done(void *);
 
 #endif /* NMEA_OS_H */

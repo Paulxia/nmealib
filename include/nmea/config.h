@@ -13,9 +13,8 @@
 
 /* Build config */
 
-#define NMEA_CONFIG_USEINFO
-#define NMEA_CONFIG_THREADSAFE
 #define NMEA_CONFIG_MATH
+//#define NMEA_CONFIG_CHECK_RANGE
 //#define NMEA_CONFIG_CHECK_CONVERT
 
 /* Utility defines */
@@ -25,8 +24,8 @@
 #define NMEA_VERSION_MINOR  (0)
 #define NMEA_VERSION_PATCH  (0)
 
+#define NMEA_PARSER_BUFSZ   (4096)
 #define NMEA_CONVSTR_BUF    (255)
-#define NMEA_RDBUFF_SZ      (1024)
 
 /* Platform defines */
 
@@ -59,6 +58,10 @@
 
 #if !defined(NDEBUG) && !defined(NMEA_CONFIG_CHECK_CONVERT)
 #   define NMEA_CONFIG_CHECK_CONVERT
+#endif
+
+#if !defined(NDEBUG) && !defined(NMEA_CONFIG_CHECK_RANGE)
+#   define NMEA_CONFIG_CHECK_RANGE
 #endif
 
 #endif /* NMEA_CONFIG_H */

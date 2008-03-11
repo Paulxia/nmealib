@@ -12,6 +12,7 @@
 #define NMEA_PARSE_H
 
 #include "db.h"
+#include "packet.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -19,22 +20,21 @@ extern "C" {
 
 typedef struct _nmeaPARSER
 {
-    void *top_node;
-    void *end_node;
+    nmeaDB *db;
+    nmeaPACKET_HANDLER *root;
     unsigned char *buffer;
     int buff_size;
     int buff_use;
 
 } nmeaPARSER;
 
-int     nmea_parser_init(nmeaPARSER *parser, int parse_mask);
+int     nmea_parser_init(nmeaPARSER *parser, nmeaDB *db, int parse_mask);
 void    nmea_parser_clear(nmeaPARSER *parser);
-void    nmea_parser_destroy(nmeaPARSER *parser);
+void    nmea_parser_done(nmeaPARSER *parser);
 
 int     nmea_parse(
         nmeaPARSER *parser,
-        const char *buff, int buff_sz,
-        nmeaDB *db
+        const char *buff, int buff_sz
         );
 
 #ifdef  __cplusplus

@@ -17,6 +17,16 @@
 extern "C" {
 #endif
 
+enum _nmeaPACKET_TYPE
+{
+    NMEA_PT_GPGGA   = 0x0001,
+    NMEA_PT_GPGSA   = 0x0002,
+    NMEA_PT_GPGSV   = 0x0004,
+    NMEA_PT_GPRMC   = 0x0008,
+    NMEA_PT_GPVTG   = 0x0010,
+    NMEA_PT_ALL     = 0xFFFF
+};
+
 typedef struct _nmeaPACKET_HANDLER
 {
     struct _nmeaPACKET_HANDLER *next;

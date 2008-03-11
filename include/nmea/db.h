@@ -13,7 +13,7 @@
 #ifndef NMEA_DB_H
 #define NMEA_DB_H
 
-#include "config.h"
+#include "variable.h"
 
 #define NMEA_SIG_BAD        (0)
 #define NMEA_SIG_LOW        (1)
@@ -28,22 +28,9 @@
 #define NMEA_SATINPACK      (4)
 #define NMEA_NSATPACKS      (NMEA_MAXSAT / NMEA_SATINPACK)
 
-#define NMEA_DEF_LAT        (5001.2621)
-#define NMEA_DEF_LON        (3613.0595)
-
 #ifdef  __cplusplus
 extern "C" {
 #endif
-
-enum _nmeaPACKET_TYPE
-{
-    NMEA_PT_GPGGA   = 0x0001,
-    NMEA_PT_GPGSA   = 0x0002,
-    NMEA_PT_GPGSV   = 0x0004,
-    NMEA_PT_GPRMC   = 0x0008,
-    NMEA_PT_GPVTG   = 0x0010,
-    NMEA_PT_ALL     = 0xFFFF
-};
 
 /**
  * All variables in NMEA database
@@ -69,19 +56,12 @@ enum _nmeaVALUE
     NMEA_SPEED,
     NMEA_DIRECTION,
     NMEA_DECLINATION,
-    NMEA_SAT_INFO,
+    NMEA_SAT_INUSE,
+    NMEA_SAT_INVIEW,
+    NMEA_SAT_MAX,
+    NMEA_SATELLITE,
     NMEA_VALUE_LAST
 };
-
-/**
- * Position data in fractional degrees or radians
- */
-typedef struct _nmeaPOS
-{
-    double lat;         /**< Latitude */
-    double lon;         /**< Longitude */
-
-} nmeaPOS;
 
 /**
  * Information about satellite
@@ -98,67 +78,36 @@ typedef struct _nmeaSATELLITE
 
 } nmeaSATELLITE;
 
-/**
- * Information about all satellites in view
- * @see nmeaINFO
- * @see nmeaGPGSV
- */
-typedef struct _nmeaSATINFO
-{
-    int     inuse;      /**< Number of satellites in use (not those in view) */
-    int     inview;     /**< Total number of satellites in view */
-    nmeaSATELLITE sat[NMEA_MAXSAT]; /**< Satellites information */
-
-} nmeaSATINFO;
-
 typedef struct _nmeaDB
 {
-    struct _nmeaHASH *hash;
-    void *rdbuff;
-    unsigned int rdbuff_sz;
-#ifdef NMEA_CONFIG_THREADSAFE
-    void *lock;
-#endif
+    struct _nmeaBIND *vars;
+    nmea_idx nvar;
 
 } nmeaDB;
 
 int     nmea_db_init(nmeaDB *db);
 int     nmea_db_done(nmeaDB *db);
-int     nmea_db_clear(nmeaDB *db);
-int     nmea_db_copy(nmeaDB *src, nmeaDB *dst);
 
-#ifdef NMEA_CONFIG_THREADSAFE
-int     nmea_db_lock(nmeaDB *db);
-int     nmea_db_unlock(nmeaDB *db);
-#else
-#   define nmea_db_lock(x)
-#   define nmea_db_unlock(x)
-#endif
+int     nmea_db_hasvar(nmeaDB *db, nmea_idx index);
+int     nmea_db_bind(nmeaDB *db, nmea_idx index, void *var, nmea_idx var_type, nmea_idx var_sz);
+int     nmea_db_unbind(nmeaDB *db, nmea_idx index);
 
-struct _nmeaVARIANT;
+int     nmea_db_set(nmeaDB *db, nmea_idx index, const void *var, nmea_idx var_type, int var_sz);
+int     nmea_db_get(nmeaDB *db, nmea_idx index, void *var, nmea_idx var_type, int var_sz);
 
-int     nmea_db_get(nmeaDB *db, int index, struct _nmeaVARIANT *);
-int     nmea_db_set(nmeaDB *db, int index, struct _nmeaVARIANT *);
+char    nmea_db_char(nmeaDB *db, nmea_idx index);
+short   nmea_db_short(nmeaDB *db, nmea_idx index);
+int     nmea_db_int(nmeaDB *db, nmea_idx index);
+long    nmea_db_long(nmeaDB *db, nmea_idx index);
+float   nmea_db_float(nmeaDB *db, nmea_idx index);
+double  nmea_db_double(nmeaDB *db, nmea_idx index);
 
-char    nmea_db_char(nmeaDB *db, int index);
-short   nmea_db_short(nmeaDB *db, int index);
-int     nmea_db_int(nmeaDB *db, int index);
-long    nmea_db_long(nmeaDB *db, int index);
-float   nmea_db_float(nmeaDB *db, int index);
-double  nmea_db_double(nmeaDB *db, int index);
-
-char *  nmea_db_string(nmeaDB *db, int index);
-nmeaSATINFO * nmea_db_satinfo(nmeaDB *db);
-
-int     nmea_db_set_char(nmeaDB *db, int index, char value);
-int     nmea_db_set_short(nmeaDB *db, int index, short value);
-int     nmea_db_set_int(nmeaDB *db, int index, int value);
-int     nmea_db_set_long(nmeaDB *db, int index, long value);
-int     nmea_db_set_float(nmeaDB *db, int index, float value);
-int     nmea_db_set_double(nmeaDB *db, int index, double value);
-int     nmea_db_set_string(nmeaDB *db, int index, char *value);
-int     nmea_db_set_stringn(nmeaDB *db, int index, char *value, int str_sz);
-int     nmea_db_set_satinfo(nmeaDB *db, nmeaSATINFO *info);
+int     nmea_db_set_char(nmeaDB *db, nmea_idx index, char value);
+int     nmea_db_set_short(nmeaDB *db, nmea_idx index, short value);
+int     nmea_db_set_int(nmeaDB *db, nmea_idx index, int value);
+int     nmea_db_set_long(nmeaDB *db, nmea_idx index, long value);
+int     nmea_db_set_float(nmeaDB *db, nmea_idx index, float value);
+int     nmea_db_set_double(nmeaDB *db, nmea_idx index, double value);
 
 #ifdef  __cplusplus
 }

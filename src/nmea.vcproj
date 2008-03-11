@@ -301,6 +301,18 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="packet"
+			>
+			<File
+				RelativePath=".\packet.c"
+				>
+			</File>
+			<File
+				RelativePath=".\packet_GPGGA.c"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\include\nmea\config.h"
 			>
@@ -315,14 +327,6 @@
 		</File>
 		<File
 			RelativePath="..\include\nmea\generate.h"
-			>
-		</File>
-		<File
-			RelativePath=".\hash.c"
-			>
-		</File>
-		<File
-			RelativePath="..\include\nmea\hash.h"
 			>
 		</File>
 		<File
@@ -342,6 +346,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\parse.c"
+			>
+		</File>
+		<File
 			RelativePath="..\include\nmea\parse.h"
 			>
 		</File>
@@ -350,15 +358,19 @@
 			>
 		</File>
 		<File
-			RelativePath="..\include\nmea\tok.h"
+			RelativePath=".\tok.c"
 			>
 		</File>
 		<File
-			RelativePath=".\variant.c"
+			RelativePath=".\tok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\include\nmea\variant.h"
+			RelativePath=".\variable.c"
+			>
+		</File>
+		<File
+			RelativePath="..\include\nmea\variable.h"
 			>
 		</File>
 	</Files>
