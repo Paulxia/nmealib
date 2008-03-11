@@ -25,6 +25,8 @@ clean: clean-custom
 
 doc:
 	$(MAKE) -C doc
+	
+remake: clean all
 
 $(BIN): $(LINKOBJ)
 	ar rsc $@ $^

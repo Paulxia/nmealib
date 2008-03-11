@@ -1,7 +1,10 @@
 #include <nmea/nmea.h>
 #include <stdio.h>
+
 #ifdef NMEA_WIN
-#include <windows.h>
+#   include <windows.h>
+#else
+#   include <unistd.h>
 #endif
 
 int main()
@@ -30,7 +33,7 @@ int main()
 #ifdef NMEA_WIN
         Sleep(500);
 #else
-        sleep(500);        
+        usleep(500000);        
 #endif
     }
 

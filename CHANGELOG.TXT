@@ -4,6 +4,8 @@ version 0.5.3
 - fixed time parse error (bug #1889477)
 - renamed math.h to gmath.h
 - excluded malloc.h header
+- fixed sleep in samples for UNIX
+- added "remake" target in Makefile
 
 version 0.5.2
 - fixed CRC error (bug #1833200)
