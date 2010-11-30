@@ -1,6 +1,8 @@
 CC = gcc 
  
 BIN = lib/libnmea.a 
+LIBDIR = /usr/lib
+INCLUDEDIR = /usr/include
 MODULES = generate generator parse parser tok context time info gmath sentence  
 SAMPLES = generate generator parse parse_file math
  
@@ -14,7 +16,7 @@ CCFLAGS += -fPIC -O2 -Wall
 INCS = -I include 
 LIBS = -lm -Llib -lnmea
  
-.PHONY: all all-before all-after clean clean-custom doc
+.PHONY: all all-before all-after clean clean-custom doc install
  
 all: all-before $(BIN) samples all-after 
 
@@ -43,3 +45,8 @@ samples_%: samples/%/main.o
 
 samples/%/main.o: samples/%/main.c
 	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
+
+install: all
+	cp $(BIN) $(LIBDIR)/$(LIBNAME)
+	rm -fr $(INCLUDEDIR)/nmea
+	cp -a include/nmea $(INCLUDEDIR)
