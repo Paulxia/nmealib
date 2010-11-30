@@ -1,5 +1,6 @@
 #include <nmea/nmea.h>
 #include <string.h>
+#include <stdio.h>
 
 int main()
 {
@@ -16,12 +17,19 @@ int main()
     int it;
     nmeaINFO info;
     nmeaPARSER parser;
+    nmeaPOS dpos;
 
     nmea_zero_INFO(&info);
     nmea_parser_init(&parser);
 
     for(it = 0; it < 6; ++it)
+    {
         nmea_parse(&parser, buff[it], (int)strlen(buff[it]), &info);
+
+        nmea_info2pos(&info, &dpos);
+        printf("%03d, Lat: %f, Lon: %f, Sig: %d, Fix: %d\n", it, dpos.lat,
+               dpos.lon, info.sig, info.fix);
+    }
 
     nmea_parser_destroy(&parser);
 
