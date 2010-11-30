@@ -10,6 +10,7 @@ LINKOBJ = $(OBJ) $(RES)
 SMPLS = $(SAMPLES:%=samples_%)
 SMPLOBJ = $(SAMPLES:%=samples/%/main.o)
 
+CCFLAGS += -fPIC
 INCS = -I include 
 LIBS = -lm -Llib -lnmea
  
@@ -33,12 +34,12 @@ $(BIN): $(LINKOBJ)
 	ranlib $@
 
 build/nmea_gcc/%.o: src/%.c 
-	$(CC) $(INCS) -c $< -o $@
+	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
 
 samples: $(SMPLS)
 
 samples_%: samples/%/main.o
-	$(CC) $< $(LIBS) -o build/$@
+	$(CC) $(CCFLAGS) $< $(LIBS) -o build/$@
 
 samples/%/main.o: samples/%/main.c
-	$(CC) $(INCS) -c $< -o $@
+	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
