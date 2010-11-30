@@ -10,7 +10,7 @@ LINKOBJ = $(OBJ) $(RES)
 SMPLS = $(SAMPLES:%=samples_%)
 SMPLOBJ = $(SAMPLES:%=samples/%/main.o)
 
-CCFLAGS += -fPIC
+CCFLAGS += -fPIC -O2 -Wall
 INCS = -I include 
 LIBS = -lm -Llib -lnmea
  
