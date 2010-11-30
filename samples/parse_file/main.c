@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #ifdef NMEA_WIN
 #   include <io.h>
