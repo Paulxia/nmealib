@@ -35,8 +35,7 @@ double nmea_radian2degree(double val)
 double nmea_ndeg2degree(double val)
 {
     double deg = ((int)(val / 100));
-    val = deg + (val - deg * 100) / 60;
-    return val;
+    return (deg + (val - deg * 100) / 60);
 }
 
 /**
@@ -47,8 +46,7 @@ double nmea_degree2ndeg(double val)
     double int_part;
     double fra_part;
     fra_part = modf(val, &int_part);
-    val = int_part * 100 + fra_part * 60;
-    return val;
+    return (int_part * 100 + fra_part * 60);
 }
 
 /**
