@@ -64,8 +64,11 @@ int nmea_parser_init(nmeaPARSER *parser)
  */
 void nmea_parser_destroy(nmeaPARSER *parser)
 {
-    NMEA_ASSERT(parser && parser->buffer);
-    free(parser->buffer);
+    NMEA_ASSERT(parser);
+    if (parser->buffer) {
+    	free(parser->buffer);
+    	parser->buffer = NULL;
+    }
     nmea_parser_queue_clear(parser);
     memset(parser, 0, sizeof(nmeaPARSER));
 }
