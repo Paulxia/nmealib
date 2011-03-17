@@ -24,6 +24,7 @@ all-before:
 	mkdir -p build/nmea_gcc
 
 clean: clean-custom 
+	make -C doc clean
 	rm -f $(LINKOBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
 
 doc:
