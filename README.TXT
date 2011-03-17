@@ -18,11 +18,6 @@ terminators).
 
 Introduction
 
-We present library in 'C' programming language for work with NMEA protocol.
-Small and easy to use. The library build on different compilers under different
-platforms (see below). The code was tested in real projects.
-Just download and try...
-
 Features
 
 - Analysis NMEA sentences and granting GPS data in C structures
@@ -33,8 +28,6 @@ Features
 
 Supported (tested) platforms
 
-- Microsoft Windows (MS Visual Studio 8.0, GCC)
-- Windows Mobile, Windows CE (MS Visual Studio 8.0)
-- UNIX (GCC)
+- Linux (GCC)
 
 Licence: LGPL
