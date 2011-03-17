@@ -16,14 +16,12 @@
 #include <float.h>
 
 /**
- * \fn nmea_degree2radian
  * \brief Convert degree to radian
  */
 double nmea_degree2radian(double val)
 { return (val * NMEA_PI180); }
 
 /**
- * \fn nmea_radian2degree
  * \brief Convert radian to degree
  */
 double nmea_radian2degree(double val)
@@ -50,14 +48,12 @@ double nmea_degree2ndeg(double val)
 }
 
 /**
- * \fn nmea_ndeg2radian
  * \brief Convert NDEG (NMEA degree) to radian
  */
 double nmea_ndeg2radian(double val)
 { return nmea_degree2radian(nmea_ndeg2degree(val)); }
 
 /**
- * \fn nmea_radian2ndeg
  * \brief Convert radian to NDEG (NMEA degree)
  */
 double nmea_radian2ndeg(double val)
