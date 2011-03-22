@@ -12,13 +12,15 @@
  * \file parser.h
  */
 
-#include "nmea/tok.h"
-#include "nmea/parse.h"
-#include "nmea/parser.h"
-#include "nmea/context.h"
+#include <nmea/parser.h>
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include <nmea/config.h>
+#include <nmea/context.h>
+#include <nmea/parse.h>
+#include <nmea/sentence.h>
 
 typedef struct _nmeaParserNODE
 {

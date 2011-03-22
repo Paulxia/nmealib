@@ -8,14 +8,12 @@
  *
  */
 
-#include "nmea/tok.h"
-#include "nmea/sentence.h"
-#include "nmea/generate.h"
-#include "nmea/units.h"
+#include <nmea/generate.h>
 
-#include <string.h>
-#include <stdlib.h>
 #include <math.h>
+
+#include <nmea/tok.h>
+#include <nmea/units.h>
 
 int nmea_gen_GPGGA(char *buff, int buff_sz, nmeaGPGGA *pack)
 {

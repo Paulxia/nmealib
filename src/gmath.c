@@ -10,10 +10,11 @@
 
 /*! \file gmath.h */
 
-#include "nmea/gmath.h"
+#include <nmea/gmath.h>
 
 #include <math.h>
-#include <float.h>
+
+#include <nmea/config.h>
 
 /**
  * \brief Convert degree to radian

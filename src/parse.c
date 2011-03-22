@@ -54,14 +54,16 @@
  * \endcode
  */
 
-#include "nmea/tok.h"
-#include "nmea/parse.h"
-#include "nmea/context.h"
-#include "nmea/gmath.h"
-#include "nmea/units.h"
+#include <nmea/parse.h>
 
 #include <string.h>
-#include <stdio.h>
+
+#include <nmea/config.h>
+#include <nmea/context.h>
+#include <nmea/tok.h>
+#include <nmea/units.h>
+
+#define NMEA_TIMEPARSE_BUF  (256)
 
 int _nmea_parse_time(const char *buff, int buff_sz, nmeaTIME *res)
 {

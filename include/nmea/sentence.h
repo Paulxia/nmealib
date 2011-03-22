@@ -13,7 +13,8 @@
 #ifndef __NMEA_SENTENCE_H__
 #define __NMEA_SENTENCE_H__
 
-#include "info.h"
+#include <nmea/info.h>
+#include <nmea/time.h>
 
 #ifdef  __cplusplus
 extern "C" {

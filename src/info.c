@@ -8,9 +8,9 @@
  *
  */
 
-#include <string.h>
+#include <nmea/info.h>
 
-#include "nmea/info.h"
+#include <string.h>
 
 void nmea_zero_INFO(nmeaINFO *info)
 {

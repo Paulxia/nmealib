@@ -10,19 +10,22 @@
 
 /*! \file tok.h */
 
-#include "nmea/tok.h"
+#include <nmea/tok.h>
 
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <ctype.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <limits.h>
+
+#include <nmea/config.h>
 
 #define NMEA_TOKS_COMPARE   (1)
 #define NMEA_TOKS_PERCENT   (2)
 #define NMEA_TOKS_WIDTH     (3)
 #define NMEA_TOKS_TYPE      (4)
+
+#define NMEA_CONVSTR_BUF    (256)
 
 /**
  * \brief Calculate control sum of binary buffer

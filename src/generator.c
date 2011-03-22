@@ -8,13 +8,14 @@
  *
  */
 
-#include "nmea/gmath.h"
-#include "nmea/generate.h"
-#include "nmea/generator.h"
-#include "nmea/context.h"
+#include <nmea/generator.h>
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include <nmea/context.h>
+#include <nmea/generate.h>
+#include <nmea/gmath.h>
 
 double nmea_random(double min, double max)
 {

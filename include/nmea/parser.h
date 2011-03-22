@@ -11,7 +11,7 @@
 #ifndef __NMEA_PARSER_H__
 #define __NMEA_PARSER_H__
 
-#include "info.h"
+#include <nmea/info.h>
 
 #ifdef  __cplusplus
 extern "C" {

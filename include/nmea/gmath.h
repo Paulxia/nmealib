@@ -11,7 +11,7 @@
 #ifndef __NMEA_GMATH_H__
 #define __NMEA_GMATH_H__
 
-#include "info.h"
+#include <nmea/info.h>
 
 #define NMEA_PI                     (3.141592653589793)             /**< PI value */
 #define NMEA_PI180                  (NMEA_PI / 180)                 /**< PI division by 180 */

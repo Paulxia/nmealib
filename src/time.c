@@ -10,7 +10,8 @@
 
 /*! \file time.h */
 
-#include "nmea/time.h"
+#include <nmea/time.h>
+
 #include <time.h>
 
 void nmea_time_now(nmeaTIME *stm)

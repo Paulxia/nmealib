@@ -1,19 +1,7 @@
 include Makefile.inc
 
-.PHONY: all all-before all-after clean clean-custom doc install uninstall
- 
 all: all-before $(BIN) samples all-after 
 
-all-before:
-	mkdir -p build/nmea_gcc
-
-clean: clean-custom 
-	$(MAKE) -C doc clean
-	rm -fr build $(LINKOBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
-
-doc:
-	$(MAKE) -C doc all
-	
 remake: clean all
 
 $(BIN): $(LINKOBJ)
@@ -30,6 +18,19 @@ samples_%: samples/%/main.o
 
 samples/%/main.o: samples/%/main.c
 	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
+
+
+.PHONY: all-before all-after clean doc install uninstall
+
+all-before:
+	mkdir -p build/nmea_gcc
+
+clean:
+	$(MAKE) -C doc clean
+	rm -fr build $(LINKOBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
+
+doc:
+	$(MAKE) -C doc all
 
 install: all
 	cp $(BIN) $(LIBDIR)/$(LIBNAME)
