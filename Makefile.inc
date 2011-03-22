@@ -12,12 +12,18 @@ ifeq ($(strip $(VERSION)),)
 VERSION=0.0.0
 endif
 
+MACHINE=$(shell uname -m)
+
 CC = gcc
 LIBNAME = libnmea.a
 
 DESTDIR ?=
 
+ifeq ($(strip $(MACHINE)),x86_64)
+LIBDIR = usr/lib64
+else
 LIBDIR = usr/lib
+endif
 INCLUDEDIR = usr/include
 
 MODULES = context generate generator gmath info parse parser sentence time tok
