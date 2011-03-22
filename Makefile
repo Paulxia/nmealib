@@ -1,6 +1,6 @@
 include Makefile.inc
 
-all: all-before lib/$(LIBNAME) samples all-after 
+all: all-before lib/$(LIBNAME) all-after 
 
 remake: clean all
 
