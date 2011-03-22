@@ -4,7 +4,7 @@ all: all-before $(BIN) samples all-after
 
 remake: clean all
 
-$(BIN): $(LINKOBJ)
+$(BIN): $(OBJ)
 	ar rsc $@ $^
 	ranlib $@
 
@@ -27,7 +27,7 @@ all-before:
 
 clean:
 	$(MAKE) -C doc clean
-	rm -fr build $(LINKOBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
+	rm -fr build $(OBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
 
 doc:
 	$(MAKE) -C doc all

@@ -12,7 +12,6 @@ SAMPLES = generate generator math parse parse_file
 
 BIN = lib/$(LIBNAME)
 OBJ = $(MODULES:%=build/nmea_gcc/%.o)
-LINKOBJ = $(OBJ) $(RES)
 
 SMPLS = $(SAMPLES:%=samples_%)
 SMPLOBJ = $(SAMPLES:%=samples/%/main.o)
