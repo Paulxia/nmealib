@@ -1,11 +1,6 @@
 #include <nmea/nmea.h>
 #include <stdio.h>
-
-#ifdef NMEA_WIN
-#   include <windows.h>
-#else
-#   include <unistd.h>
-#endif
+#include <unistd.h>
 
 int main()
 {
@@ -30,11 +25,7 @@ int main()
         buff[gen_sz] = 0;
         printf("%s\n", &buff[0]);
 
-#ifdef NMEA_WIN
-        Sleep(500);
-#else
         usleep(500000);        
-#endif
     }
 
     nmea_gen_destroy(gen);

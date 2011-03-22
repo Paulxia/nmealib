@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#ifdef NMEA_WIN
-#   include <io.h>
-#endif
 
 void trace(const char *str, int str_size)
 {

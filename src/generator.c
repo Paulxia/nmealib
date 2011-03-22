@@ -16,10 +16,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#if defined(NMEA_WIN) && defined(_MSC_VER)
-# pragma warning(disable: 4100) /* unreferenced formal parameter */
-#endif
-
 double nmea_random(double min, double max)
 {
     static double rand_max = RAND_MAX;
@@ -393,7 +389,3 @@ void nmea_destroy_generator(nmeaGENERATOR *gen)
 {
     nmea_gen_destroy(gen);
 }
-
-#if defined(NMEA_WIN) && defined(_MSC_VER)
-# pragma warning(default: 4100)
-#endif
