@@ -15,7 +15,8 @@ endif
 MACHINE=$(shell uname -m)
 
 CC = gcc
-LIBNAME = libnmea.a
+
+LIBNAME = libnmea.so
 
 DESTDIR ?=
 

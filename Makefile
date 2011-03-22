@@ -5,8 +5,7 @@ all: all-before lib/$(LIBNAME) all-after
 remake: clean all
 
 lib/$(LIBNAME): $(OBJ) Makefile
-	ar rsc $@ $^
-	ranlib $@
+	$(CC) -shared -Wl,-soname=$(LIBNAME) -o lib/$(LIBNAME) $(OBJ) -lc
 
 build/nmea_gcc/%.o: src/%.c 
 	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
@@ -36,10 +35,17 @@ install: all
 ifneq ($(strip $(DESTDIR)),)
 	mkdir -p $(DESTDIR)/{$(LIBDIR),$(INCLUDEDIR)}
 endif
-	cp lib/$(LIBNAME) $(DESTDIR)/$(LIBDIR)/$(LIBNAME)
+	cp lib/$(LIBNAME) $(DESTDIR)/$(LIBDIR)/$(LIBNAME).$(VERSION)
+ifeq ($(strip $(DESTDIR)),)
+	ldconfig /$(LIBDIR)
+endif
 	rm -fr $(DESTDIR)/$(INCLUDEDIR)/nmea
 	cp -a include/nmea $(DESTDIR)/$(INCLUDEDIR)
 
 uninstall:
 	rm -fr $(DESTDIR)/$(INCLUDEDIR)/nmea
-	rm -f $(DESTDIR)/$(LIBDIR)/$(LIBNAME)
+	rm -f $(DESTDIR)/$(LIBDIR)/$(LIBNAME).$(VERSION)
+ifeq ($(strip $(DESTDIR)),)
+	rm -f /$(LIBDIR)/$(LIBNAME)
+	ldconfig /$(LIBDIR)
+endif
