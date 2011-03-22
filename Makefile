@@ -1,10 +1,10 @@
 include Makefile.inc
 
-all: all-before $(BIN) samples all-after 
+all: all-before lib/$(LIBNAME) samples all-after 
 
 remake: clean all
 
-$(BIN): $(OBJ)
+lib/$(LIBNAME): $(OBJ)
 	ar rsc $@ $^
 	ranlib $@
 
@@ -27,17 +27,16 @@ all-before:
 
 clean:
 	$(MAKE) -C doc clean
-	rm -fr build $(OBJ) $(BIN) $(SMPLOBJ) $(SMPLS)
+	rm -fr build $(OBJ) lib/$(LIBNAME) $(SMPLOBJ) $(SMPLS)
 
 doc:
 	$(MAKE) -C doc all
 
 install: all
-	cp $(BIN) $(LIBDIR)/$(LIBNAME)
+	cp lib/$(LIBNAME) $(LIBDIR)/$(LIBNAME)
 	rm -fr $(INCLUDEDIR)/nmea
 	cp -a include/nmea $(INCLUDEDIR)
 
 uninstall:
 	rm -fr $(INCLUDEDIR)/nmea
 	rm -f $(LIBDIR)/$(LIBNAME)
-	

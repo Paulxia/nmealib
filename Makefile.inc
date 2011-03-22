@@ -10,7 +10,6 @@ INCLUDEDIR = /usr/include
 MODULES = context generate generator gmath info parse parser sentence time tok
 SAMPLES = generate generator math parse parse_file
 
-BIN = lib/$(LIBNAME)
 OBJ = $(MODULES:%=build/nmea_gcc/%.o)
 
 SMPLS = $(SAMPLES:%=samples_%)
