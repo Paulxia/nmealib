@@ -4,7 +4,7 @@ all: all-before lib/$(LIBNAME) all-after
 
 remake: clean all
 
-lib/$(LIBNAME): $(OBJ)
+lib/$(LIBNAME): $(OBJ) Makefile
 	ar rsc $@ $^
 	ranlib $@
 
@@ -33,10 +33,13 @@ doc:
 	$(MAKE) -C doc all
 
 install: all
-	cp lib/$(LIBNAME) $(LIBDIR)/$(LIBNAME)
-	rm -fr $(INCLUDEDIR)/nmea
-	cp -a include/nmea $(INCLUDEDIR)
+ifneq ($(strip $(DESTDIR)),)
+	mkdir -p $(DESTDIR)/{$(LIBDIR),$(INCLUDEDIR)}
+endif
+	cp lib/$(LIBNAME) $(DESTDIR)/$(LIBDIR)/$(LIBNAME)
+	rm -fr $(DESTDIR)/$(INCLUDEDIR)/nmea
+	cp -a include/nmea $(DESTDIR)/$(INCLUDEDIR)
 
 uninstall:
-	rm -fr $(INCLUDEDIR)/nmea
-	rm -f $(LIBDIR)/$(LIBNAME)
+	rm -fr $(DESTDIR)/$(INCLUDEDIR)/nmea
+	rm -f $(DESTDIR)/$(LIBDIR)/$(LIBNAME)

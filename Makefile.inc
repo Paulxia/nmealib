@@ -14,8 +14,12 @@ endif
 
 CC = gcc
 LIBNAME = libnmea.a
-LIBDIR = /usr/lib
-INCLUDEDIR = /usr/include
+
+DESTDIR ?=
+
+LIBDIR = usr/lib
+INCLUDEDIR = usr/include
+
 MODULES = context generate generator gmath info parse parser sentence time tok
 SAMPLES = generate generator math parse parse_file
 
