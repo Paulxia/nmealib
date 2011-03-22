@@ -1,3 +1,8 @@
+GITVERSION = $(shell git describe --dirt='-dirty')
+
+VERSION=$(shell git describe | \
+          sed -r 's/.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*/\1/')
+
 CC = gcc
 LIBNAME = libnmea.a
 LIBDIR = /usr/lib
@@ -15,5 +20,3 @@ SMPLOBJ = $(SAMPLES:%=samples/%/main.o)
 CCFLAGS += -fPIC -O2 -Wall
 INCS = -I ./include
 LIBS = -lm -Llib -lnmea
-
-VERSION = $(shell git describe)

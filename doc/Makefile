@@ -7,7 +7,7 @@ clean:
 
 all: clean nmea.doxygen
 	@echo "Updating version..."
-	@sed -r "s/^([[:space:]]*PROJECT_NUMBER[[:space:]]*=).*/\1 $(VERSION)/" nmea.doxygen > nmea.doxygen.temp
+	@sed -r "s/^([[:space:]]*PROJECT_NUMBER[[:space:]]*=).*/\1 $(GITVERSION)/" nmea.doxygen > nmea.doxygen.temp
 	@echo "Generating HTML and man pages..."
 	@doxygen nmea.doxygen.temp
 	@rm nmea.doxygen.temp
