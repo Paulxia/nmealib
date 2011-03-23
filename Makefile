@@ -1,32 +1,59 @@
 include Makefile.inc
 
-all: all-before lib/$(LIBNAME) all-after 
+#
+# Settings
+#
+
+LIBNAME = libnmea.so
+
+DESTDIR ?=
+
+MACHINE=$(shell uname -m)
+ifeq ($(strip $(MACHINE)),x86_64)
+LIBDIR = usr/lib64
+else
+LIBDIR = usr/lib
+endif
+INCLUDEDIR = usr/include
+
+MODULES = context generate generator gmath info parse parser sentence time tok
+OBJ = $(MODULES:%=build/%.o)
+
+LIBS = -lm
+INCS = -I ./include
+
+
+#
+# Targets
+#
+
+all: all-before lib/$(LIBNAME)
 
 remake: clean all
 
 lib/$(LIBNAME): $(OBJ) Makefile
 	$(CC) -shared -Wl,-soname=$(LIBNAME) -o lib/$(LIBNAME) $(OBJ) -lc
 
-build/nmea_gcc/%.o: src/%.c 
+build/%.o: src/%.c
 	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
 
-samples: $(SMPLS)
-
-samples_%: samples/%/main.o
-	$(CC) $(CCFLAGS) $< $(LIBS) -o build/$@
-
-samples/%/main.o: samples/%/main.c
-	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
+samples: all
+	make -C samples all
 
 
-.PHONY: all-before all-after clean doc install uninstall
+#
+# Phony Targets
+#
+
+.PHONY: all-before clean doc install uninstall
 
 all-before:
-	mkdir -p build/nmea_gcc
+	mkdir -p build
 
 clean:
 	$(MAKE) -C doc clean
-	rm -fr build $(OBJ) lib/$(LIBNAME) $(SMPLOBJ) $(SMPLS)
+	$(MAKE) -C samples clean
+	rm -fr build lib/$(LIBNAME)
 
 doc:
 	$(MAKE) -C doc all

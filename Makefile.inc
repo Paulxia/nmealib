@@ -12,29 +12,5 @@ ifeq ($(strip $(VERSION)),)
 VERSION=0.0.0
 endif
 
-MACHINE=$(shell uname -m)
-
 CC = gcc
-
-LIBNAME = libnmea.so
-
-DESTDIR ?=
-
-ifeq ($(strip $(MACHINE)),x86_64)
-LIBDIR = usr/lib64
-else
-LIBDIR = usr/lib
-endif
-INCLUDEDIR = usr/include
-
-MODULES = context generate generator gmath info parse parser sentence time tok
-SAMPLES = generate generator math parse parse_file
-
-OBJ = $(MODULES:%=build/nmea_gcc/%.o)
-
-SMPLS = $(SAMPLES:%=samples_%)
-SMPLOBJ = $(SAMPLES:%=samples/%/main.o)
-
 CCFLAGS += -fPIC -O2 -Wall
-INCS = -I ./include
-LIBS = -lm -Llib -lnmea

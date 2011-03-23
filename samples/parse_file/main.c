@@ -20,6 +20,7 @@ void error(const char *str, int str_size)
 
 int main()
 {
+    static const char * filename = "../../samples/parse_file/gpslog.txt";
     nmeaINFO info;
     nmeaPARSER parser;
     FILE *file;
@@ -27,10 +28,12 @@ int main()
     int size, it = 0;
     nmeaPOS dpos;
 
-    file = fopen("gpslog.txt", "rb");
+    file = fopen(filename, "rb");
 
-    if(!file)
+    if(!file) {
+        printf("Could not open file %s\n", filename);
         return -1;
+    }
 
     nmea_property()->trace_func = &trace;
     nmea_property()->error_func = &error;
