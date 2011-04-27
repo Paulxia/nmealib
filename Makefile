@@ -27,7 +27,7 @@ INCS = -I ./include
 # Targets
 #
 
-all: all-before lib/$(LIBNAME)
+all: Makefile Makefile.inc all-before lib/$(LIBNAME)
 
 remake: clean all
 
