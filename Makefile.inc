@@ -1,4 +1,4 @@
-GITVERSION = $(shell git describe --dirt='-dirty')
+GITVERSION = $(shell git describe --dirty='-dirty')
 
 # we expect the version to be like 'v0.5.3-27-g0c2727a' and then strip the 'v',
 # and the '-27-g0c2727a' parts
