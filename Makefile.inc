@@ -13,4 +13,4 @@ VERSION=0.0.0
 endif
 
 CC = gcc
-CCFLAGS += -fPIC -O2 -Wall
+CCFLAGS += -fPIC -O2 -Wall -Werror
