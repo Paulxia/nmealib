@@ -75,7 +75,7 @@ int main()
     for(it = 0; it < NUM_POINTS; ++it)
     {
         printf(
-            "P%d in radians: lat:%9.6lf lon:%9.6lf  \tin degree: lat:%+010.6lf° lon:%+011.6lf°\n", 
+            "P%d in radians: lat:%9.6lf lon:%9.6lf  \tin degree: lat:%+010.6lf° lon:%+011.6lf°\n",
             it, pos[it].lat, pos[it].lon, nmea_radian2degree(pos[it].lat), nmea_radian2degree(pos[it].lon)
             );
     }
