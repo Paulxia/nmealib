@@ -21,6 +21,7 @@
 #include <nmea/info.h>
 
 #include <nmea/sentence.h>
+#include <nmea/gmath.h>
 #include <nmea/time.h>
 
 #include <string.h>
@@ -292,4 +293,51 @@ void nmea_INFO_sanitise(nmeaINFO *nmeaInfo) {
 	if (directionAdjusted) {
 		nmeaInfo->direction = direction;
 	}
+}
+
+/**
+ * Converts the position fields to degrees and DOP fields to meters so that
+ * all fields use normal metric units.
+ *
+ * @param nmeaInfo
+ * the nmeaINFO
+ */
+void nmea_INFO_unit_conversion(nmeaINFO * nmeaInfo) {
+	if (!nmeaInfo) {
+		return;
+	}
+
+	/* smask (already in correct format) */
+
+	/* utc (already in correct format) */
+
+	/* sig (already in correct format) */
+	/* fix (already in correct format) */
+
+	if (nmea_INFO_has_field(nmeaInfo->smask, PDOP)) {
+		nmeaInfo->PDOP = nmea_dop2meters(nmeaInfo->PDOP);
+	}
+
+	if (nmea_INFO_has_field(nmeaInfo->smask, HDOP)) {
+		nmeaInfo->HDOP = nmea_dop2meters(nmeaInfo->HDOP);
+	}
+
+	if (nmea_INFO_has_field(nmeaInfo->smask, VDOP)) {
+		nmeaInfo->VDOP = nmea_dop2meters(nmeaInfo->VDOP);
+	}
+
+	if (nmea_INFO_has_field(nmeaInfo->smask, LAT)) {
+		nmeaInfo->lat = nmea_ndeg2degree(nmeaInfo->lat);
+	}
+
+	if (nmea_INFO_has_field(nmeaInfo->smask, LON)) {
+		nmeaInfo->lon = nmea_ndeg2degree(nmeaInfo->lon);
+	}
+
+	/* elv (already in correct format) */
+	/* speed (already in correct format) */
+	/* direction (already in correct format) */
+	/* declination (already in correct format) */
+
+	/* satinfo (not used) */
 }

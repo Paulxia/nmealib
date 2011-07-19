@@ -123,6 +123,8 @@ bool nmea_INFO_has_field(int smask, nmeaINFO_FIELD fieldName);
 
 void nmea_INFO_sanitise(nmeaINFO *nmeaInfo);
 
+void nmea_INFO_unit_conversion(nmeaINFO * nmeaInfo);
+
 #ifdef  __cplusplus
 }
 #endif
