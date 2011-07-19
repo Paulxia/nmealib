@@ -16,7 +16,7 @@ LIBDIR = usr/lib
 endif
 INCLUDEDIR = usr/include
 
-MODULES = context generate generator gmath info parse parser sentence time tok
+MODULES = context generate generator gmath info parse parser sentence time tok util
 OBJ = $(MODULES:%=build/%.o)
 
 LIBS = -lm
