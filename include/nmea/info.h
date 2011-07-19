@@ -121,6 +121,8 @@ void nmea_zero_INFO(nmeaINFO *info);
 
 bool nmea_INFO_has_field(int smask, nmeaINFO_FIELD fieldName);
 
+void nmea_INFO_sanitise(nmeaINFO *nmeaInfo);
+
 #ifdef  __cplusplus
 }
 #endif
