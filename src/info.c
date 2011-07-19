@@ -20,6 +20,8 @@
 
 #include <nmea/info.h>
 
+#include <nmea/sentence.h>
+
 #include <string.h>
 
 void nmea_zero_INFO(nmeaINFO *info)
@@ -28,4 +30,74 @@ void nmea_zero_INFO(nmeaINFO *info)
     nmea_time_now(&info->utc);
     info->sig = NMEA_SIG_BAD;
     info->fix = NMEA_FIX_BAD;
+}
+
+/**
+ * Determine whether a given nmeaINFO structure has a certain field.
+ *
+ * nmeaINFO dependencies:
+ <pre>
+ field/sentence GPGGA   GPGSA   GPGSV   GPRMC   GPVTG
+ smask:         x       x       x       x       x
+ utc:           x                       x
+ sig:           x                       x
+ fix:                   x               x
+ PDOP:                  x
+ HDOP:          x       x
+ VDOP:                  x
+ lat:           x                       x
+ lon:           x                       x
+ elv:           x
+ speed:                                 x       x
+ direction:                             x       x
+ declination:                                   x
+ satinfo:               x       x
+ </pre>
+ *
+ * @param smask
+ * the smask of a nmeaINFO structure
+ * @param fieldName
+ * the field name
+ *
+ * @return
+ * - true when the nmeaINFO structure has the field
+ * - false otherwise
+ */
+bool nmea_INFO_has_field(int smask, nmeaINFO_FIELD fieldName) {
+	switch (fieldName) {
+		case SMASK:
+			return true;
+
+		case UTC:
+		case SIG:
+		case LAT:
+		case LON:
+			return ((smask & (GPGGA | GPRMC)) != 0);
+
+		case FIX:
+			return ((smask & (GPGSA | GPRMC)) != 0);
+
+		case PDOP:
+		case VDOP:
+			return ((smask & GPGSA) != 0);
+
+		case HDOP:
+			return ((smask & (GPGGA | GPGSA)) != 0);
+
+		case ELV:
+			return ((smask & GPGGA) != 0);
+
+		case SPEED:
+		case DIRECTION:
+			return ((smask & (GPRMC | GPVTG)) != 0);
+
+		case DECLINATION:
+			return ((smask & GPVTG) != 0);
+
+		case SATINFO:
+			return ((smask & (GPGSA | GPGSV)) != 0);
+
+		default:
+			return false;
+	}
 }

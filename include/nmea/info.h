@@ -24,6 +24,7 @@
 #define __NMEA_INFO_H__
 
 #include <nmea/time.h>
+#include <stdbool.h>
 
 #define NMEA_SIG_BAD   (0)
 #define NMEA_SIG_LOW   (1)
@@ -108,7 +109,17 @@ typedef struct _nmeaINFO {
 	nmeaSATINFO satinfo; /**< Satellites information */
 } nmeaINFO;
 
+/**
+ * Enumeration for the fields names of a nmeaINFO structure
+ */
+typedef enum _nmeaINFO_FIELD {
+	SMASK, UTC, SIG, FIX, PDOP, HDOP, VDOP, LAT, LON, ELV, SPEED, DIRECTION,
+	DECLINATION, SATINFO
+} nmeaINFO_FIELD;
+
 void nmea_zero_INFO(nmeaINFO *info);
+
+bool nmea_INFO_has_field(int smask, nmeaINFO_FIELD fieldName);
 
 #ifdef  __cplusplus
 }
