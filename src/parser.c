@@ -25,6 +25,7 @@
 #include <nmea/parser.h>
 
 #include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 
 #include <nmea/config.h>

@@ -45,10 +45,9 @@ int main()
 
     for(it = 0; it < NUM_POINTS; ++it)
     {
-        int result;
         nmeaINFO info;
         nmea_zero_INFO(&info);
-        result = nmea_parse(&parser, buff[it], (int)strlen(buff[it]), &info);        
+        (void)nmea_parse(&parser, buff[it], (int)strlen(buff[it]), &info);
         nmea_info2pos(&info, &pos[it]);
     }
 
