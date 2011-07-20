@@ -18,25 +18,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*! \file time.h */
-
 #include <nmea/time.h>
 
 #include <time.h>
+#include <sys/timeb.h>
 
-void nmea_time_now(nmeaTIME *stm)
-{
-    time_t lt;
-    struct tm *tt;
+void nmea_time_now(nmeaTIME *stm) {
+	struct timeb lt;
+	struct tm tt;
 
-    time(&lt);
-    tt = gmtime(&lt);
+	(void) ftime(&lt);
+	gmtime_r(&lt.time, &tt);
 
-    stm->year = tt->tm_year;
-    stm->mon = tt->tm_mon;
-    stm->day = tt->tm_mday;
-    stm->hour = tt->tm_hour;
-    stm->min = tt->tm_min;
-    stm->sec = tt->tm_sec;
-    stm->hsec = 0;
+	stm->year = tt.tm_year;
+	stm->mon = tt.tm_mon;
+	stm->day = tt.tm_mday;
+	stm->hour = tt.tm_hour;
+	stm->min = tt.tm_min;
+	stm->sec = tt.tm_sec;
+	stm->hsec = (lt.millitm / 10);
 }
