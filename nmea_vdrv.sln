@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vdriver", "driver\vdriver.vcproj", "{B9806411-4038-4797-ADDB-509E5115F81F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{462522F4-3517-4507-A9C9-1D51DEBC4824} = {462522F4-3517-4507-A9C9-1D51DEBC4824}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "upkit", "upkit\upkit.vcproj", "{7FBC90E4-3F97-45D5-A387-908843CE2E91}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nmea", "..\nmea\trunk\src\nmea.vcproj", "{462522F4-3517-4507-A9C9-1D51DEBC4824}"
+EndProject
+Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "cab", "bin\cab.vddproj", "{B0008309-6FD6-4529-A6F4-BF933259DEFE}"
+EndProject
+Global
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Pocket PC 2003 (ARMV4) = Debug|Pocket PC 2003 (ARMV4)
+		Release|Pocket PC 2003 (ARMV4) = Release|Pocket PC 2003 (ARMV4)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9806411-4038-4797-ADDB-509E5115F81F}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Pocket PC 2003 (ARMV4)
+		{B9806411-4038-4797-ADDB-509E5115F81F}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Pocket PC 2003 (ARMV4)
+		{B9806411-4038-4797-ADDB-509E5115F81F}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release|Pocket PC 2003 (ARMV4)
+		{7FBC90E4-3F97-45D5-A387-908843CE2E91}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Pocket PC 2003 (ARMV4)
+		{7FBC90E4-3F97-45D5-A387-908843CE2E91}.Debug|Pocket PC 2003 (ARMV4).Build.0 = Debug|Pocket PC 2003 (ARMV4)
+		{7FBC90E4-3F97-45D5-A387-908843CE2E91}.Debug|Pocket PC 2003 (ARMV4).Deploy.0 = Debug|Pocket PC 2003 (ARMV4)
+		{7FBC90E4-3F97-45D5-A387-908843CE2E91}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Pocket PC 2003 (ARMV4)
+		{7FBC90E4-3F97-45D5-A387-908843CE2E91}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Debug|Pocket PC 2003 (ARMV4).Build.0 = Debug|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Pocket PC 2003 (ARMV4)
+		{462522F4-3517-4507-A9C9-1D51DEBC4824}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release|Pocket PC 2003 (ARMV4)
+		{B0008309-6FD6-4529-A6F4-BF933259DEFE}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug
+		{B0008309-6FD6-4529-A6F4-BF933259DEFE}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release
+		{B0008309-6FD6-4529-A6F4-BF933259DEFE}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
