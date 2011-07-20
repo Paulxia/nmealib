@@ -4,7 +4,7 @@
  * URL: http://nmea.sourceforge.net
  * Author: Tim (xtimor@gmail.com)
  * Licence: http://www.gnu.org/licenses/lgpl.html
- * $Id$
+ * $Id: data.h 10 2007-11-15 14:50:15Z xtimor $
  *
  */
 
@@ -13,71 +13,28 @@
 #ifndef __NMEA_INFO_H__
 #define __NMEA_INFO_H__
 
-#include "time.h"
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
-#define NMEA_SIG_BAD        (0)
-#define NMEA_SIG_LOW        (1)
-#define NMEA_SIG_MID        (2)
-#define NMEA_SIG_HIGH       (3)
-
-#define NMEA_FIX_BAD        (1)
-#define NMEA_FIX_2D         (2)
-#define NMEA_FIX_3D         (3)
-
-#define NMEA_MAXSAT         (12)
-#define NMEA_SATINPACK      (4)
-#define NMEA_NSATPACKS      (NMEA_MAXSAT / NMEA_SATINPACK)
-
-#define NMEA_DEF_LAT        (5001.2621)
-#define NMEA_DEF_LON        (3613.0595)
+#include "db.h"
 
 #ifdef  __cplusplus
 extern "C" {
 #endif
 
-/**
- * Position data in fractional degrees or radians
- */
-typedef struct _nmeaPOS
-{
-    double lat;         /**< Latitude */
-    double lon;         /**< Longitude */
+#ifdef NMEA_CONFIG_USEINFO
 
-} nmeaPOS;
-
-/**
- * Information about satellite
- * @see nmeaSATINFO
- * @see nmeaGPGSV
- */
-typedef struct _nmeaSATELLITE
-{
-    int     id;         /**< Satellite PRN number */
-    int     in_use;     /**< Used in position fix */
-    int     elv;        /**< Elevation in degrees, 90 maximum */
-    int     azimuth;    /**< Azimuth, degrees from true north, 000 to 359 */
-    int     sig;        /**< Signal, 00-99 dB */
-
-} nmeaSATELLITE;
-
-/**
- * Information about all satellites in view
- * @see nmeaINFO
- * @see nmeaGPGSV
- */
-typedef struct _nmeaSATINFO
-{
-    int     inuse;      /**< Number of satellites in use (not those in view) */
-    int     inview;     /**< Total number of satellites in view */
-    nmeaSATELLITE sat[NMEA_MAXSAT]; /**< Satellites information */
-
-} nmeaSATINFO;
+#if defined(_MSC_VER)
+#   pragma message("Warning! Structure nmeaINFO is depricated. please use nmea_get, nmea_set, nmea_char, nmea_short ...")
+#endif
 
 /**
  * Summary GPS information from all parsed packets,
- * used also for generating NMEA stream
+ * used also for generating NMEA stream (depricated, use nmea_get, nmea_set, nmea_char, nmea_short ...)
  * @see nmea_parse
- * @see nmea_GPGGA2info,  nmea_...2info
+ * @see nmea_get, nmea_set
+ * @see nmea_char, nmea_short, nmea_int, nmea_long, nmea_float, nmea_double, nmea_string, nmea_satinfo
  */
 typedef struct _nmeaINFO
 {
@@ -104,6 +61,10 @@ typedef struct _nmeaINFO
 } nmeaINFO;
 
 void nmea_zero_INFO(nmeaINFO *info);
+int nmea_get_info(nmeaDB *db, nmeaINFO *info);
+int nmea_set_info(nmeaDB *db, nmeaINFO *info);
+
+#endif /* NMEA_CONFIG_USEINFO */
 
 #ifdef  __cplusplus
 }

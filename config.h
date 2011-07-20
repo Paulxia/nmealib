@@ -4,19 +4,29 @@
  * URL: http://nmea.sourceforge.net
  * Author: Tim (xtimor@gmail.com)
  * Licence: http://www.gnu.org/licenses/lgpl.html
- * $Id$
+ * $Id: config.h 12 2007-11-19 12:27:10Z xtimor $
  *
  */
 
 #ifndef __NMEA_CONFIG_H__
 #define __NMEA_CONFIG_H__
 
-#define NMEA_VERSION        ("0.5.2")
-#define NMEA_VERSION_MAJOR  (0)
-#define NMEA_VERSION_MINOR  (5)
-#define NMEA_VERSION_PATCH  (2)
+/* Build config */
+
+#define NMEA_CONFIG_USEINFO
+#define NMEA_CONFIG_THREADSAFE
+#define NMEA_CONFIG_AUTOLOCK
+
+/* Utility defines */
+
+#define NMEA_VERSION        ("1.0.0")
+#define NMEA_VERSION_MAJOR  (1)
+#define NMEA_VERSION_MINOR  (0)
+#define NMEA_VERSION_PATCH  (0)
 
 #define NMEA_CONVSTR_BUF    (255)
+
+/* Platform defines */
 
 #if defined(WINCE) || defined(UNDER_CE)
 #   define  NMEA_CE
