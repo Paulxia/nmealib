@@ -29,6 +29,10 @@
 
 void nmea_zero_INFO(nmeaINFO *info)
 {
+	if (!info) {
+		return;
+	}
+
     memset(info, 0, sizeof(nmeaINFO));
     nmea_time_now(&info->utc);
     info->sig = NMEA_SIG_BAD;
