@@ -1,0 +1,14 @@
+NAME VirtualGPSJet.dll
+
+EXPORTS
+COM_Close
+COM_Deinit
+COM_Init
+COM_IOControl
+COM_Open
+COM_PowerDown
+COM_PowerUp
+COM_Read
+COM_Seek
+COM_Write
+WaitCommEvent

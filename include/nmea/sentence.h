@@ -1,10 +1,9 @@
 ///////////////////////////////////////////////////////////
 //
 // NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
+// URL: http://nmea.jugum.org
+// Author: Tim (xtimor@jugum.org)
+// $Id: sentence.h 20 2007-04-04 08:05:03Z xtimor $
 //
 ///////////////////////////////////////////////////////////
 

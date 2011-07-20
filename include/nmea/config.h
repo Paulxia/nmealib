@@ -1,20 +1,19 @@
 ///////////////////////////////////////////////////////////
 //
 // NMEA library
-// URL: http://nmea.sourceforge.net
-// Author: Tim (xtimor@gmail.com)
-// Licence: http://www.gnu.org/licenses/lgpl.html
-// $Id$
+// URL: http://nmea.jugum.org
+// Author: Tim (xtimor@jugum.org)
+// $Id: config.h 20 2007-04-04 08:05:03Z xtimor $
 //
 ///////////////////////////////////////////////////////////
 
 #ifndef __NMEA_CONFIG_H__
 #define __NMEA_CONFIG_H__
 
-#define NMEA_VERSION        ("0.4.1")
+#define NMEA_VERSION        ("0.4.0")
 #define NMEA_VERSION_MAJOR  (0)
 #define NMEA_VERSION_MINOR  (4)
-#define NMEA_VERSION_PATCH  (1)
+#define NMEA_VERSION_PATCH  (0)
 
 #define NMEA_CONVSTR_BUF    (255)
 

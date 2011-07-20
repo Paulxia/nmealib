@@ -20,13 +20,11 @@ int main()
     info.satinfo.inuse = 1;
     info.satinfo.inview = 1;
 
-    /*
     info.satinfo.sat[0].id = 1;
     info.satinfo.sat[0].in_use = 1;
     info.satinfo.sat[0].elv = 50;
     info.satinfo.sat[0].azimuth = 0;
     info.satinfo.sat[0].sig = 99;
-    */
 
     for(it = 0; it < 10; ++it)
     {
