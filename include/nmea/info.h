@@ -4,7 +4,7 @@
  * URL: http://nmea.sourceforge.net
  * Author: Tim (xtimor@gmail.com)
  * Licence: http://www.gnu.org/licenses/lgpl.html
- * $Id$
+ * $Id: info.h 10 2007-11-15 14:50:15Z xtimor $
  *
  */
 
