@@ -1,3 +1,23 @@
+/*
+ * This file is part of nmealib.
+ *
+ * Copyright (c) 2008 Timur Sinitsyn
+ * Copyright (c) 2011 Ferry Huberts
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <nmea/nmea.h>
 
 #include <stdio.h>
@@ -56,7 +76,7 @@ int main()
     for(it = 0; it < NUM_POINTS; ++it)
     {
         printf(
-            "P%d in radians: lat:%9.6lf lon:%9.6lf  \tin degree: lat:%+010.6lf° lon:%+011.6lf°\n", 
+            "P%d in radians: lat:%9.6lf lon:%9.6lf  \tin degree: lat:%+010.6lfÂ° lon:%+011.6lfÂ°\n", 
             it, pos[it].lat, pos[it].lon, nmea_radian2degree(pos[it].lat), nmea_radian2degree(pos[it].lon)
             );
     }
@@ -67,11 +87,11 @@ int main()
         printf("\n");
         printf("Distance P0 to P%d\ton spheroid:  %14.3lf m\n", it, dist[it][0]);
         printf("Distance P0 to P%d\ton ellipsoid: %14.3lf m\n", it, dist[it][1]);
-        printf("Azimuth  P0 to P%d\tat start: %8.3lf°\tat end: %8.3lf°\n", it, nmea_radian2degree(azimuth[it][0]), nmea_radian2degree(azimuth[it][1]));
-        printf("Move     P0 to P%d\t         \tAzimuth at end: %8.3lf°\n", it, nmea_radian2degree(azimuth_moved[it]));
-        printf("Move     P0 to P%d\ton spheroid:  %3s lat:%+010.6lf° lon:%+011.6lf°\n", it, result[0] == 1 ? "OK" : "nOK", nmea_radian2degree(pos_moved[it][0].lat), nmea_radian2degree(pos_moved[it][0].lon));
-        printf("Move     P0 to P%d\ton ellipsoid: %3s lat:%+010.6lf° lon:%+011.6lf°\n", it, result[0] == 1 ? "OK" : "nOK", nmea_radian2degree(pos_moved[it][1].lat), nmea_radian2degree(pos_moved[it][1].lon));
-        printf("Move     P0 to P%d\toriginal:         lat:%+010.6lf° lon:%+011.6lf°\n", it, nmea_radian2degree(pos[it].lat), nmea_radian2degree(pos[it].lon));
+        printf("Azimuth  P0 to P%d\tat start: %8.3lfÂ°\tat end: %8.3lfÂ°\n", it, nmea_radian2degree(azimuth[it][0]), nmea_radian2degree(azimuth[it][1]));
+        printf("Move     P0 to P%d\t         \tAzimuth at end: %8.3lfÂ°\n", it, nmea_radian2degree(azimuth_moved[it]));
+        printf("Move     P0 to P%d\ton spheroid:  %3s lat:%+010.6lfÂ° lon:%+011.6lfÂ°\n", it, result[0] == 1 ? "OK" : "nOK", nmea_radian2degree(pos_moved[it][0].lat), nmea_radian2degree(pos_moved[it][0].lon));
+        printf("Move     P0 to P%d\ton ellipsoid: %3s lat:%+010.6lfÂ° lon:%+011.6lfÂ°\n", it, result[0] == 1 ? "OK" : "nOK", nmea_radian2degree(pos_moved[it][1].lat), nmea_radian2degree(pos_moved[it][1].lon));
+        printf("Move     P0 to P%d\toriginal:         lat:%+010.6lfÂ° lon:%+011.6lfÂ°\n", it, nmea_radian2degree(pos[it].lat), nmea_radian2degree(pos[it].lon));
     }
 
     return 0;
