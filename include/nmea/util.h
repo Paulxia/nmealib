@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 bool nmea_string_has_invalid_chars(const char * str, const char * strName,
-		const char * report, size_t reportSize);
+		char * report, size_t reportSize);
 
 #ifdef  __cplusplus
 }
