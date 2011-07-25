@@ -60,7 +60,7 @@ doc:
 
 install: all
 ifneq ($(strip $(DESTDIR)),)
-	mkdir -p $(DESTDIR)/{$(LIBDIR),$(INCLUDEDIR)}
+	mkdir -p $(DESTDIR)/$(LIBDIR) $(DESTDIR)/$(INCLUDEDIR)
 endif
 	cp lib/$(LIBNAME) $(DESTDIR)/$(LIBDIR)/$(LIBNAME).$(VERSION)
 	ln -sf $(LIBNAME).$(VERSION) $(DESTDIR)/$(LIBDIR)/$(LIBNAME)
