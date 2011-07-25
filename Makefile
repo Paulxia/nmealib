@@ -63,6 +63,7 @@ ifneq ($(strip $(DESTDIR)),)
 	mkdir -p $(DESTDIR)/{$(LIBDIR),$(INCLUDEDIR)}
 endif
 	cp lib/$(LIBNAME) $(DESTDIR)/$(LIBDIR)/$(LIBNAME).$(VERSION)
+	ln -sf $(LIBNAME).$(VERSION) $(DESTDIR)/$(LIBDIR)/$(LIBNAME)
 ifeq ($(strip $(DESTDIR)),)
 	ldconfig /$(LIBDIR)
 endif
@@ -71,7 +72,7 @@ endif
 
 uninstall:
 	rm -fr $(DESTDIR)/$(INCLUDEDIR)/nmea
-	rm -f $(DESTDIR)/$(LIBDIR)/$(LIBNAME).$(VERSION)
+	rm -f $(DESTDIR)/$(LIBDIR)/$(LIBNAME) $(DESTDIR)/$(LIBDIR)/$(LIBNAME).$(VERSION)
 ifeq ($(strip $(DESTDIR)),)
 	rm -f /$(LIBDIR)/$(LIBNAME)
 	ldconfig /$(LIBDIR)
