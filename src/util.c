@@ -62,7 +62,7 @@ bool nmea_string_has_invalid_chars(const char * str, const char * strName,
 				snprintf((char*) report, reportSize, "Configured %s (%s),"
 						" character %lu, can not contain non-printable"
 						" characters (codes outside the range [32, 126])",
-						strName, str, i + 1);
+						strName, str, (unsigned long)i + 1);
 				report[reportSize - 1] = '\0';
 			}
 			return true;
@@ -73,7 +73,7 @@ bool nmea_string_has_invalid_chars(const char * str, const char * strName,
 				if (report) {
 					snprintf((char *) report, reportSize, "Configured %s (%s),"
 							" character %lu, can not contain %s characters",
-							strName, str, i + 1, invalidCharsNames[j]);
+							strName, str, (unsigned long)i + 1, invalidCharsNames[j]);
 					report[reportSize - 1] = '\0';
 				}
 				return true;
