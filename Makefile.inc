@@ -1,3 +1,25 @@
+######################
+#
+# Highlevel configuration options for all
+#
+#
+
+# activate debugging with 1 or deactivate with 0
+DEBUG ?= 1
+
+
+######################
+#
+# Lowlevel options and rules
+#
+
+ifeq ($(DEBUG),0)
+STRIP ?=	strip
+else
+STRIP ?=	:
+endif
+
+
 GITVERSION = $(shell git describe --dirty='-dirty')
 
 # we expect the version to be like 'v0.5.3-27-g0c2727a' and then strip the 'v',
