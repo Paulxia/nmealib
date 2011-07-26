@@ -23,10 +23,12 @@ remake: clean all
 samples: $(SMPLS)
 
 ../build/samples/%: %/main.o
-	$(CC) $(CCFLAGS) $< $(LIBS) -o $@
+	@echo "[LD] $@"
+	@$(CC) $(CCFLAGS) $< $(LIBS) -o $@
 
 %/main.o: %/main.c Makefile ../Makefile.inc
-	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
+	@echo "[CC] $<"
+	@$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
 
 
 #
@@ -36,7 +38,7 @@ samples: $(SMPLS)
 .PHONY: all-before clean
 
 all-before:
-	mkdir -p ../build/samples
+	@mkdir -p ../build/samples
 
 clean:
 	rm -f $(SMPLOBJ) $(SMPLS)
