@@ -124,6 +124,8 @@ int nmea_parse(
         case GPVTG:
             nmea_GPVTG2info((nmeaGPVTG *)pack, info);
             break;
+        default:
+            break;
         };
 
         free(pack);

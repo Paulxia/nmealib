@@ -218,6 +218,8 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
                 if(width && 0 != (parg_target))
                     *((double *)parg_target) = nmea_atof(beg_tok, width);
                 break;
+            default:
+                break;
             };
 
             if(parg_target)
@@ -251,6 +253,9 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
                 goto fail;
             };
 
+            break;
+
+        default:
             break;
         };
     }

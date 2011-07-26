@@ -35,4 +35,5 @@ VERSION=0.0.0
 endif
 
 CC = gcc
-CCFLAGS += -fPIC -O2 -Wall -Werror
+CCFLAGS += -fPIC -O2 -Wall -Wextra -Wformat=2 -Winit-self \
+           -Wmissing-include-dirs -Wswitch-default -Wswitch-enum -Werror
