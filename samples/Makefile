@@ -25,7 +25,7 @@ samples: $(SMPLS)
 ../build/samples/%: %/main.o
 	$(CC) $(CCFLAGS) $< $(LIBS) -o $@
 
-%/main.o: %/main.c
+%/main.o: %/main.c Makefile ../Makefile.inc
 	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
 
 

@@ -27,14 +27,14 @@ INCS = -I ./include
 # Targets
 #
 
-all: Makefile Makefile.inc all-before lib/$(LIBNAME)
+all: all-before lib/$(LIBNAME)
 
 remake: clean all
 
-lib/$(LIBNAME): $(OBJ) Makefile
+lib/$(LIBNAME): $(OBJ)
 	$(CC) -shared -Wl,-soname=$(LIBNAME) -o lib/$(LIBNAME) $(OBJ) -lc
 
-build/%.o: src/%.c
+build/%.o: src/%.c Makefile Makefile.inc
 	$(CC) $(CCFLAGS) $(INCS) -c $< -o $@
 
 samples: all
