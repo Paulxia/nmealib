@@ -48,12 +48,12 @@ samples: all
 .PHONY: all-before clean doc install uninstall
 
 all-before:
-	mkdir -p build
+	mkdir -p build lib
 
 clean:
 	$(MAKE) -C doc clean
 	$(MAKE) -C samples clean
-	rm -fr build lib/$(LIBNAME)
+	rm -fr build lib
 
 doc:
 	$(MAKE) -C doc all
