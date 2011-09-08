@@ -20,15 +20,16 @@
 
 #include <nmea/time.h>
 
+#include <stddef.h>
 #include <time.h>
-#include <sys/timeb.h>
+#include <sys/time.h>
 
 void nmea_time_now(nmeaTIME *stm) {
-	struct timeb lt;
+	struct timeval tp;
 	struct tm tt;
 
-	(void) ftime(&lt);
-	gmtime_r(&lt.time, &tt);
+	gettimeofday(&tp, NULL);
+	gmtime_r(&tp.tv_sec, &tt);
 
 	stm->year = tt.tm_year;
 	stm->mon = tt.tm_mon;
@@ -36,5 +37,5 @@ void nmea_time_now(nmeaTIME *stm) {
 	stm->hour = tt.tm_hour;
 	stm->min = tt.tm_min;
 	stm->sec = tt.tm_sec;
-	stm->hsec = (lt.millitm / 10);
+	stm->hsec = (tp.tv_usec / 10000);
 }
