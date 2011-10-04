@@ -34,6 +34,6 @@ ifeq ($(strip $(VERSION)),)
 VERSION=0.0.0
 endif
 
-CC = gcc
+CC ?= gcc
 CCFLAGS += -fPIC -O2 -Wall -Wextra -Wformat=2 -Winit-self \
            -Wmissing-include-dirs -Wswitch-default -Wswitch-enum -Werror
