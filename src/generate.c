@@ -28,7 +28,7 @@
 int nmea_gen_GPGGA(char *buff, int buff_sz, nmeaGPGGA *pack)
 {
     return nmea_printf(buff, buff_sz,
-        "$GPGGA,%02d%02d%02d.%02d,%07.4f,%C,%07.4f,%C,%1d,%02d,%03.1f,%03.1f,%C,%03.1f,%C,%03.1f,%04d",
+        "$GPGGA,%02d%02d%02d.%02d,%09.4f,%C,%010.4f,%C,%1d,%02d,%03.1f,%03.1f,%C,%03.1f,%C,%03.1f,%04d",
         pack->utc.hour, pack->utc.min, pack->utc.sec, pack->utc.hsec,
         pack->lat, pack->ns, pack->lon, pack->ew,
         pack->sig, pack->satinuse, pack->HDOP, pack->elv, pack->elv_units,
@@ -63,7 +63,7 @@ int nmea_gen_GPGSV(char *buff, int buff_sz, nmeaGPGSV *pack)
 int nmea_gen_GPRMC(char *buff, int buff_sz, nmeaGPRMC *pack)
 {
     return nmea_printf(buff, buff_sz,
-        "$GPRMC,%02d%02d%02d.%02d,%C,%07.4f,%C,%07.4f,%C,%03.1f,%03.1f,%02d%02d%02d,%03.1f,%C,%C",
+        "$GPRMC,%02d%02d%02d.%02d,%C,%09.4f,%C,%010.4f,%C,%03.1f,%03.1f,%02d%02d%02d,%03.1f,%C,%C",
         pack->utc.hour, pack->utc.min, pack->utc.sec, pack->utc.hsec,
         pack->status, pack->lat, pack->ns, pack->lon, pack->ew,
         pack->speed, pack->direction,
