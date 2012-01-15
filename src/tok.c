@@ -157,6 +157,7 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
             width = 0;
             beg_fmt = format;
             tok_type = NMEA_TOKS_WIDTH;
+            /* no break */
         case NMEA_TOKS_WIDTH:
             if(isdigit(*format))
                 break;
@@ -165,6 +166,7 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
                 if(format > beg_fmt)
                     width = nmea_atoi(beg_fmt, (int)(format - beg_fmt), 10);
             }
+            /* no break */
         case NMEA_TOKS_TYPE:
             beg_tok = buff;
 
