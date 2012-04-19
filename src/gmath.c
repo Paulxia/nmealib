@@ -119,7 +119,7 @@ double nmea_distance_ellipsoid(
     double L, phi1, phi2, U1, U2, sin_U1, sin_U2, cos_U1, cos_U2;
     double sigma, sin_sigma, cos_sigma, cos_2_sigmam, sqr_cos_2_sigmam, sqr_cos_alpha, lambda, sin_lambda, cos_lambda, delta_lambda;
     int remaining_steps; 
-    double sqr_u, A, B, delta_sigma;
+    double sqr_u, A, B, delta_sigma, lambda_prev;
 
     /* Check input */
     NMEA_ASSERT(from_pos != 0);
@@ -161,14 +161,15 @@ double nmea_distance_ellipsoid(
     sqr_cos_alpha = 0;
     lambda = L;
     sin_lambda = sin(lambda);                            
-    cos_lambda = cos(lambda);                       
-    delta_lambda = lambda;
+    cos_lambda = cos(lambda);  
+    lambda_prev = 2*NMEA_PI;
+    delta_lambda = fabs(lambda - lambda_prev);//fixed bug when to_pos->lon equal from_pos->lon
     remaining_steps = 20; 
 
     while ((delta_lambda > 1e-12) && (remaining_steps > 0)) 
     { /* Iterate */
         /* Variables */
-        double tmp1, tmp2, sin_alpha, cos_alpha, C, lambda_prev;
+        double tmp1, tmp2, sin_alpha, cos_alpha, C;
 
         /* Calculation */
         tmp1 = cos_U2 * sin_lambda;
